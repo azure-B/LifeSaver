@@ -19,6 +19,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         comment: "유저의 비밀번호",
       },
+      salt: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+        comment: "유저 비밀번호 salt값",
+      },
       name: {
         type: DataTypes.STRING(20),
         allowNull: false,
