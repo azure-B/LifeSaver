@@ -8,10 +8,10 @@ function initModels(sequelize) {
   var posts = _posts(sequelize, DataTypes);
   var users = _users(sequelize, DataTypes);
 
-  images.belongsTo(posts, { as: "post", foreignKey: "post_id"});
-  posts.hasMany(images, { as: "images", foreignKey: "post_id"});
-  posts.belongsTo(users, { as: "user", foreignKey: "user_id"});
-  users.hasMany(posts, { as: "posts", foreignKey: "user_id"});
+  images.belongsTo(posts, { as: "post", foreignKey: "post_id" });
+  posts.hasMany(images, { as: "images", foreignKey: "post_id" });
+  posts.belongsTo(users, { as: "user", foreignKey: "user_id" });
+  users.hasMany(posts, { as: "posts", foreignKey: "user_id" });
 
   return {
     images,
