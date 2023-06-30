@@ -25,6 +25,17 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
       comment: "게시물 내용 (채팅 내용)"
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      comment: "게시물 생성 시간"
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      comment: "게시물 수정시간"
     }
   }, {
     sequelize,

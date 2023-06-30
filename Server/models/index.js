@@ -9,7 +9,7 @@ const password = config.password;
 const database = config.database;
 
 const sequelize = new Sequelize(database, username, password, {
-  "dialect": config.dialect
+  dialect: config.dialect,
 });
 const db = initModels(sequelize);
 
