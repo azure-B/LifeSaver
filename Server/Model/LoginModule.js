@@ -27,10 +27,10 @@ const Module = {
   },
 
   userInfo: async (email) => {
-    const result = await models.db.users.findOne(
-      { attributes: ["name"] },
-      { where: { email } }
-    );
+    const result = await models.db.users.findOne({
+      attributes: ["id"],
+      where: { email },
+    });
     return result;
   },
 };

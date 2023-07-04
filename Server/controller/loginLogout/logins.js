@@ -14,10 +14,9 @@ exports.login = async (req, res) => {
     return res.send({ message: message.error });
   } else {
     try {
-      const { name } = await Module.userInfo(email);
+      const { id } = await Module.userInfo(email);
       req.session.user = {
-        email,
-        name,
+        id,
       };
 
       req.session.save((err) => {

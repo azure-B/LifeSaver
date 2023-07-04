@@ -13,12 +13,10 @@ exports.login = async (req, res) => {
   if (!compareEmail || !comparePw) return res.send({ message: message.Error });
   else {
     // 추 후 유저정보 더 받을 수도 있으니까?
-    const { name } = await Module.userInfo(email);
+    const { id } = await Module.userInfo(email);
     req.session.user = {
-      email,
-      name,
+      id,
     };
-
     req.session.save((err) => {
       if (err) {
         console.error("세션 저장 오류:", err);

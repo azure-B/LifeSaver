@@ -38,21 +38,11 @@ module.exports = {
   },
   // 개별 게시물 조회
   GetPost: async (req, res) => {
-    // const userSession = req.session.user ? req.session.user : null;
     const postId = req.params.id;
+    const userSession = req.session.user ? req.session.user : null;
     let userId = null;
     let isAuthor = false;
-
-    // if (userSession) {
-    //   userId = models.db.users.findOne({
-    //     where: { email: userSession.email },
-    //     attributes: ["id"],
-    //   });
-    //   // 해당 게시물 작성자인지 판별
-    //   isAuthor = postId === userId ? true : false;
-    // }
-
-    const result = await models.db.posts.findOne({
+    const post = await models.db.posts.findOne({
       where: { id: postId },
       attributes: ["id", "title", "content", "created_at", "updated_at"],
       include: [
@@ -68,24 +58,37 @@ module.exports = {
         },
       ],
     });
-    if (!result) {
+
+    if (userSession) {
+      // 해당 게시물 작성자인지 판별
+      userId = userSession.id;
+      isAuthor = (post.user.id === userId) ? true : false;
+    }
+
+    if (!post) {
       return res.status(404).send("존재하지 않는 질문");
     }
     const resData = {
       isAuthor,
-      data: result,
+      data: post,
     };
-    console.log(resData);
     return res.send({ resData });
   },
   // 게시물 등록
   PostPost: async (req, res) => {
-    // TODO: 로그인 판별
+    const userSession = req.session.user ? req.session.user : null;
+    const postId = req.params.id;
+    let userId = null;
+    if (userSession) {
+      userId = userSession.id;
+    } else {
+      return res.status(401).send("로그인이 필요합니다.");
+    }
+
     const t = await models.sequelize.transaction();
 
     try {
       const { title, content } = req.body;
-      const userId = 1;
 
       const newPost = await models.db.posts.create(
         {
@@ -118,20 +121,33 @@ module.exports = {
 
   // 게시물 수정
   PatchPost: async (req, res) => {
-    // TODO: 로그인 판별
     const t = await models.sequelize.transaction();
     try {
       const postId = req.params.id;
       const { title, content } = req.body;
 
-      const existingPost = await models.db.posts.findByPk(postId, {
-        transaction: t,
-      });
+      // 게시물 작성자인지 판별한다
+      const userSession = req.session.user ? req.session.user : null;
+      let userId = null;
+      let isAuthor = false;
+      const existingPost = await models.db.posts.findByPk(postId);
 
       if (!existingPost) {
         await t.rollback();
         return res.status(404).send("존재하지 않는 게시물입니다.");
       }
+
+      if (userSession) {
+        userId = userSession.id;
+        isAuthor = existingPost.user_id === userId ? true : false;
+      } else {
+        return res.status(401).send("로그인이 필요합니다.");
+      }
+
+      if (!isAuthor) {
+        return res.status(403).send("권한이 없습니다.");
+      }
+
       // 이전파일 삭제
       const existingFiles = await models.db.images.findAll({
         where: { post_id: existingPost.id },
@@ -184,10 +200,22 @@ module.exports = {
     const t = await models.sequelize.transaction();
     try {
       const postId = req.params.id;
+      const existingPost = await models.db.posts.findByPk(postId);
+      // 게시물 작성자인지 판별한다
+      const userSession = req.session.user ? req.session.user : null;
+      let userId = null;
+      let isAuthor = false;
 
-      const existingPost = await models.db.posts.findByPk(postId, {
-        transaction: t,
-      });
+      if (userSession) {
+        userId = userSession.id;
+        isAuthor = existingPost.user_id === userId ? true : false;
+      } else {
+        return res.status(401).send("로그인이 필요합니다.");
+      }
+
+      if (!isAuthor) {
+        return res.status(403).send("권한이 없습니다.");
+      }
 
       if (!existingPost) {
         await t.rollback();
@@ -201,8 +229,8 @@ module.exports = {
       });
 
       const fileDeletionPromises = existingFiles.map(async (file) => {
-        const filePath = path.join(__dirname, "../", file.url); 
-        await fs.promises.unlink(filePath); 
+        const filePath = path.join(__dirname, "../", file.url);
+        await fs.promises.unlink(filePath);
         await models.db.images.destroy({
           where: { id: file.id },
           transaction: t,
@@ -214,11 +242,11 @@ module.exports = {
       // 게시물 삭제
       await existingPost.destroy({ transaction: t });
 
-      await t.commit(); 
+      await t.commit();
 
       return res.status(200).send("게시물이 삭제되었습니다.");
     } catch (error) {
-      await t.rollback(); 
+      await t.rollback();
       console.error(error);
       return res.status(500).send("서버 오류");
     }
