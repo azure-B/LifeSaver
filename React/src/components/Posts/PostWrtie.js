@@ -36,30 +36,33 @@ function PostWrite() {
         });
       }
       // form 등록
-      const response = await axios.post(`${SERVER}/api/posts`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+      const response = await axios
+        .post(`${SERVER}/api/posts`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        })
+        .then((response) => {
+          alert(response.data.message);
+          setTitle("");
+          setContent("");
+          setFiles(null);
 
-      alert(response.data.message);
-      setTitle("");
-      setContent("");
-      setFiles(null);
-
-      // 해당 글의 상세페이지로 이동
-      const postId = response.data.postId;
-      navigate(`/posts/${postId}`);
+          // 해당 글의 상세페이지로 이동
+          const postId = response.data.postId;
+          navigate(`/posts/${postId}`);
+        })
+        .catch((error) => {
+          alert(error.response.data.message);
+        });
     } catch (error) {
       console.error(error);
-      alert("게시물 등록 중 오류가 발생했습니다.");
+      alert(error.response.data);
     }
   };
   return (
     <>
-      <h2>Post Write</h2>
-      <h2>게시물 등록</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">제목:</label>

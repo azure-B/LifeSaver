@@ -35,6 +35,7 @@ module.exports = {
     });
     return res.send({ posts });
   },
+  
   // 개별 게시물 조회
   GetPost: async (req, res) => {
     const postId = req.params.id;
@@ -74,9 +75,8 @@ module.exports = {
       userId = userSession.id;
       isAuthor = post.user.id === userId ? true : false;
     }
-
     if (!post) {
-      return res.status(404).send("존재하지 않는 질문");
+      return res.status(404).send("존재하지 않는 질문입니다.");
     }
     return res.send({ isAuthor, post });
   },

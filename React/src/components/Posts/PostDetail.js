@@ -1,27 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER } from "../../lib/config";
 
 function PostDetail() {
+  const apiUrl = `${SERVER}/api/posts`;
+  const page = "/NoticeBoard";
   const navigate = useNavigate();
   const { postId } = useParams();
   const [detail, setDetail] = useState(null);
   const [isAuthor, setIsAuthor] = useState(true);
 
-  const apiGetPost = async () => {
-    const response = await axios.get(`${SERVER}/api/posts/${postId}`, {
-      withCredentials: true,
-    });
-    setDetail(response.data.post);
-    setIsAuthor(response.data.isAuthor);
-  };
   const navigateToEditPage = () => {
-    // TODO: 글쓰기 페이지로 이동시키기 (경로 설정해주십쇼..)
-    navigate(`/posts/edit/${postId}`);
+    navigate(`${page}/edit/${postId}`);
   };
 
+  const handleDelete = () => {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      apiDeletePost();
+    }
+  };
+  const apiDeletePost = async () => {
+    await axios
+      .delete(`${apiUrl}/${postId}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        alert(response.data);
+        navigate(`${page}/list`);
+      })
+      .catch((error) => {
+        alert(error.response.data);
+      });
+  };
   useEffect(() => {
+    const apiGetPost = async () => {
+      await axios
+        .get(`${apiUrl}/${postId}`, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          setDetail(response.data.post);
+          setIsAuthor(response.data.isAuthor);
+        })
+        .catch((error) => {
+          alert(error.response.data);
+        });
+    };
     apiGetPost();
   }, [postId]);
 
@@ -31,7 +56,12 @@ function PostDetail() {
 
   return (
     <>
-      <button onClick={navigateToEditPage}>수정하기</button>
+      {!isAuthor && (
+        <>
+          <button onClick={navigateToEditPage}>수정하기</button>
+          <button onClick={handleDelete}>삭제하기</button>
+        </>
+      )}
       <div>제목 : {detail.title}</div>
       <div>내용 : {detail.content}</div>
       <div>작성일시 : {detail.createdAt}</div>

@@ -24,17 +24,6 @@ function PostEdit() {
     });
   };
 
-  // 게시물 가져오는 API
-  const apiGetPost = async () => {
-    const response = await axios.get(`${SERVER}/api/posts/${postId}`, {
-      withCredentials: true,
-    });
-
-    setTitle(response.data.post.title);
-    setContent(response.data.post.content);
-    setFiles(response.data.post.images);
-  };
-
   // form submit 이벤트
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,8 +50,7 @@ function PostEdit() {
           setTitle("");
           setContent("");
           setFiles(null);
-          // 해당 글의 상세페이지로 이동
-          navigate(`/posts/${postId}`);
+          navigate(`/NoticeBoard/${postId}`);
         })
         .catch((error) => {
           alert(error.response.data);
@@ -73,12 +61,20 @@ function PostEdit() {
     }
   };
   useEffect(() => {
+    const apiGetPost = async () => {
+      const response = await axios.get(`${SERVER}/api/posts/${postId}`, {
+        withCredentials: true,
+      });
+
+      setTitle(response.data.post.title);
+      setContent(response.data.post.content);
+      setFiles(response.data.post.images);
+    };
     apiGetPost();
   }, [postId]);
 
   return (
     <>
-      <h2>EDIT</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">제목:</label>
