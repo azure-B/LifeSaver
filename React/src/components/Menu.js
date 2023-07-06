@@ -98,6 +98,7 @@ const Menusection = styled.ul`
   justify-content: center;
   align-items: center;
   background-color: #bbb;
+  z-index: 10;
 `;
 
 const Menuhead = styled.li`
@@ -117,7 +118,7 @@ const Main = styled.li`
     opacity: 0.6;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
 `;
 
@@ -183,6 +184,7 @@ const CloseButton = styled.button`
   font-size: 15pt;
   width: 8rem;
   height: 6rem;
+  z-index: 20;
   &:hover {
     color: gray;
     font-size: 14pt;
