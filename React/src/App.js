@@ -1,14 +1,14 @@
 import GlobalStyle from "./GlobalStyle";
 import ScrollBackground from "./Components/ScrollBackground";
-import Footer from "./components/Layout/Footer";
-import Menu from "./components/Menu";
+// import Footer from "./Components/Layout/Footer";
+// import Menu from "./Components/Menu";
 import "./App.css";
 
 function App() {
   return (
     <div>
       {/* <Menu /> */}
-      <Footer />
+      {/* <Footer /> */}
       <GlobalStyle></GlobalStyle>
       <ScrollBackground></ScrollBackground>
     </div>
