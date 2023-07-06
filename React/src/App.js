@@ -1,13 +1,11 @@
-import CheckImg from "./components/CheckImg";
-import DetailsPageAll from "./components/DetailsPageAll";
-import Login from "./components/Login";
-import Logout from "./components/Logout";
-import Regi from "./components/Registers";
+import Footer from "./components/Layout/Footer";
+import Menu from "./components/Menu";
 
 function App() {
   return (
     <>
-      <DetailsPageAll />
+      {/* <Menu /> */}
+      <Footer />
     </>
   );
 }
