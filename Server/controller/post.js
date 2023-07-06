@@ -8,7 +8,8 @@ module.exports = {
     const limit = 10;
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const offset = (page - 1) * limit;
-
+    const totalCount = await models.db.posts.count();
+    const totalPages = Math.ceil(totalCount / limit);
     const result = await models.db.posts.findAll({
       attributes: ["id", "title", "content", "created_at", "updated_at"],
       include: [
@@ -33,9 +34,9 @@ module.exports = {
         name: post["user.name"],
       };
     });
-    return res.send({ posts });
+    return res.send({ posts, totalPages });
   },
-  
+
   // 개별 게시물 조회
   GetPost: async (req, res) => {
     const postId = req.params.id;
