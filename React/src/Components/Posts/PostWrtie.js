@@ -36,7 +36,7 @@ function PostWrite() {
         });
       }
       // form 등록
-      const response = await axios
+      await axios
         .post(`${SERVER}/api/posts`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -54,10 +54,9 @@ function PostWrite() {
           navigate(`/posts/${postId}`);
         })
         .catch((error) => {
-          alert(error.response.data.message);
+          alert(error.response.data);
         });
     } catch (error) {
-      console.error(error);
       alert(error.response.data);
     }
   };
