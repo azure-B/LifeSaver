@@ -28,7 +28,7 @@ const Image = styled.img`
 const ImageContainer = styled.div`
   cursor: pointer;
   width: calc(33.33% - 1rem);
-  height: 50vh;
+  height: 70vh;
   position: relative;
 `;
 

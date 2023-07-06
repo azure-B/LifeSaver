@@ -63,10 +63,10 @@ const Footer = () => {
 export default Footer;
 
 const Footerpage = styled.ul`
-  position: absolute;
+  position: relative;
   margin: 0 auto;
   width: 100%;
-  height: 50vh;
+  height: 30vh;
   bottom: 0;
   display: flex;
   justify-content: center;

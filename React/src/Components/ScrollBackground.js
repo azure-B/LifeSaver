@@ -8,6 +8,7 @@ import ScrollToTop from "./ScrollToTop";
 import EmptyItem from "./EmptyItem";
 import LinkPage from "./LinkPage";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Outer = styled.div`
   background-color: #bbb;
@@ -20,13 +21,13 @@ const Outer = styled.div`
   }
 `;
 
-const InnerHalf = styled.div`
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 100px;
-`;
+// const InnerHalf = styled.div`
+//   height: 50vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 100px;
+// `;
 
 const ScrollBackground = () => {
   const outerDivRef = useRef();
@@ -126,13 +127,14 @@ const ScrollBackground = () => {
               scrollIndex={scrollIndex}
             />
           ) : (
-            <EmptyItem />
+            <EmptyItem></EmptyItem>
           )}
           <Divider />
         </React.Fragment>
       ))}
       <LinkPage></LinkPage>
-      <InnerHalf>푸터</InnerHalf>
+      <Footer></Footer>
+
       <ScrollController
         outerDivRef={outerDivRef}
         handleScrollUp={handleScrollUp}
