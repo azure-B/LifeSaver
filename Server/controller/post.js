@@ -1,6 +1,6 @@
 const models = require("../models");
-const multer = require("multer");
 const fs = require("fs");
+const moment = require("moment");
 
 module.exports = {
   // 전체 게시물 조회 (페이징 처리)
@@ -23,15 +23,14 @@ module.exports = {
       limit: limit,
       raw: true,
     });
-
     const posts = result.map((post) => {
       return {
         id: post.id,
         title: post.title,
         content: post.content,
-        createdAt: post.created_at,
-        updatedAt: post.updated_at,
-        name: post["users.name"],
+        createdAt: moment(post.created_at).format("YYYY.MM.DD"),
+        updatedAt: moment(post.updated_at).format("YYYY.MM.DD"),
+        name: post["user.name"],
       };
     });
     return res.send({ posts });
@@ -42,7 +41,7 @@ module.exports = {
     const userSession = req.session.user ? req.session.user : null;
     let userId = null;
     let isAuthor = false;
-    const post = await models.db.posts.findOne({
+    const result = await models.db.posts.findOne({
       where: { id: postId },
       attributes: ["id", "title", "content", "created_at", "updated_at"],
       include: [
@@ -58,26 +57,32 @@ module.exports = {
         },
       ],
     });
-
+    const post = {
+      id: result.id,
+      title: result.title,
+      content: result.content,
+      createdAt: moment(result.created_at).format("YYYY.MM.DD"),
+      updatedAt: moment(result.updated_at).format("YYYY.MM.DD"),
+      user: {
+        id: result.user.id,
+        name: result.user.name,
+      },
+      images: result.images,
+    };
     if (userSession) {
       // 해당 게시물 작성자인지 판별
       userId = userSession.id;
-      isAuthor = (post.user.id === userId) ? true : false;
+      isAuthor = post.user.id === userId ? true : false;
     }
 
     if (!post) {
       return res.status(404).send("존재하지 않는 질문");
     }
-    const resData = {
-      isAuthor,
-      data: post,
-    };
-    return res.send({ resData });
+    return res.send({ isAuthor, post });
   },
   // 게시물 등록
   PostPost: async (req, res) => {
     const userSession = req.session.user ? req.session.user : null;
-    const postId = req.params.id;
     let userId = null;
     if (userSession) {
       userId = userSession.id;
@@ -88,8 +93,11 @@ module.exports = {
     const t = await models.sequelize.transaction();
 
     try {
-      const { title, content } = req.body;
-
+      let { title, content } = req.body;
+      title = title ? title : "제보합니다.";
+      if (!content) {
+        return res.status(500).send("내용을 입력해주세요!");
+      }
       const newPost = await models.db.posts.create(
         {
           title,
@@ -98,11 +106,12 @@ module.exports = {
         },
         { transaction: t }
       );
+
       //첨부파일
       if (req.files && req.files.length > 0) {
         const filePromises = req.files.map(async (file) => {
           const fileData = {
-            url: file.path + "/" + file.originalname,
+            url: file.location,
             post_id: newPost.id,
           };
           await models.db.images.create(fileData, { transaction: t });
@@ -111,7 +120,11 @@ module.exports = {
         await Promise.all(filePromises);
       }
       await t.commit();
-      return res.status(201).send("게시물이 등록되었습니다.");
+      const result = {
+        postId: newPost.id,
+        message: "게시물이 정상적으로 등록되었습니다",
+      };
+      return res.status(201).send(result);
     } catch (error) {
       await t.rollback();
       console.error(error);
