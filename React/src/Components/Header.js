@@ -9,6 +9,9 @@ const HeaderContainer = styled.div`
   height: 6rem;
   align-items: center;
   z-index: 3;
+  background-color: ${({ scrollIndex }) =>
+    scrollIndex === 6 ? "rgba(0, 0, 0, .6)" : "transparent"};
+  transition: background-color 0.5s ease;
 `;
 
 const HeaderDiv = styled.div`
@@ -22,18 +25,18 @@ const HeaderDiv = styled.div`
 
 const MainTitle = styled.div`
   font-size: 3.5rem;
-  color: ${(props) =>
-    props.scrollIndex === 1
+  color: ${({ scrollIndex }) =>
+    scrollIndex === 1
       ? "#333"
-      : props.scrollIndex === 2
+      : scrollIndex === 2
       ? "#bbb"
-      : props.scrollIndex === 3
+      : scrollIndex === 3
       ? "#bbb"
-      : props.scrollIndex === 4
+      : scrollIndex === 4
       ? "#bbb"
-      : props.scrollIndex === 5
+      : scrollIndex === 5
       ? "#333"
-      : "white"};
+      : "#bbb"};
   transition: color 0.5s ease;
   font-weight: bold;
   &:hover {
@@ -52,16 +55,17 @@ const MenuButtonDiv = styled.div`
 
 const IconButton = styled.div`
   font-size: 2rem;
-  color: ${(props) =>
-    props.scrollIndex === 1
+  cursor: pointer;
+  color: ${({ scrollIndex }) =>
+    scrollIndex === 1
       ? "#333"
-      : props.scrollIndex === 2
+      : scrollIndex === 2
       ? "#bbb"
-      : props.scrollIndex === 3
+      : scrollIndex === 3
       ? "#bbb"
-      : props.scrollIndex === 4
+      : scrollIndex === 4
       ? "#bbb"
-      : props.scrollIndex === 5
+      : scrollIndex === 5
       ? "#333"
       : "white"};
   transition: color 0.5s ease;
@@ -81,16 +85,18 @@ const MypageContainer = styled.div`
 
 const TransButton = styled.div`
   font-size: 1.2rem;
-  color: ${(props) =>
-    props.scrollIndex === 1
+  margin-right: 20px;
+  cursor: pointer;
+  color: ${({ scrollIndex }) =>
+    scrollIndex === 1
       ? "#333"
-      : props.scrollIndex === 2
+      : scrollIndex === 2
       ? "#bbb"
-      : props.scrollIndex === 3
+      : scrollIndex === 3
       ? "#bbb"
-      : props.scrollIndex === 4
+      : scrollIndex === 4
       ? "#bbb"
-      : props.scrollIndex === 5
+      : scrollIndex === 5
       ? "#333"
       : "white"};
   transition: color 0.5s ease;
@@ -102,7 +108,7 @@ const TransButton = styled.div`
 
 function Header({ scrollIndex }) {
   return (
-    <HeaderContainer>
+    <HeaderContainer scrollIndex={scrollIndex}>
       <HeaderDiv>
         <MenuButtonDiv>
           <IconButton scrollIndex={scrollIndex}>
@@ -110,7 +116,7 @@ function Header({ scrollIndex }) {
           </IconButton>
         </MenuButtonDiv>
 
-        <MainTitle scrollIndex={scrollIndex}>Life Saver</MainTitle>
+        <MainTitle scrollIndex={scrollIndex}>LIFE SAVER</MainTitle>
 
         <MypageContainer>
           <TransButton scrollIndex={scrollIndex}>EN</TransButton>
