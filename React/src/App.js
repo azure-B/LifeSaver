@@ -1,5 +1,14 @@
+import GlobalStyle from "./GlobalStyle";
+import "./App.css";
+import ScrollBackground from "./Components/ScrollBackground";
+
 function App() {
-  return <></>;
+  return (
+    <div>
+      <GlobalStyle></GlobalStyle>
+      <ScrollBackground></ScrollBackground>
+    </div>
+  );
 }
 
 export default App;
