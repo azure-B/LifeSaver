@@ -8,8 +8,7 @@ function CheckImg() {
 
   return (
     <>
-      <img src="/animals/Phoca largha Pallas.jpeg"></img>
-      <Imgs src="/animals/Phoca largha Pallas.jpeg"></Imgs>
+      <Imgs className="ABC" src="/animals/Prionailurus bengalensis.jpeg"></Imgs>
     </>
   );
 }
