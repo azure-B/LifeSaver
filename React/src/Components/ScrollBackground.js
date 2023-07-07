@@ -110,7 +110,7 @@ const ScrollBackground = () => {
     },
     {
       video: "videos-fish.MP4",
-      text: "우리 모두가\n\n 적극적인 환경 보호와 지속 가능한 발전을 위해 노력하여\n 멸종 위기 동물들이 안전하게 서식할 수 있는\n 지구를 만들어 갈 필요가 있습니다.",
+      text: "우리 모두가 적극적인 환경 보호하여\n\n멸종 위기 동물들이 안전하게 서식할 수 있는\n지구를 만들어 갈 필요가 있습니다.",
     },
   ];
 
@@ -140,7 +140,7 @@ const ScrollBackground = () => {
         handleScrollUp={handleScrollUp}
         handleScrollDown={handleScrollDown}
       />
-      <ScrollToTop outerDivRef={outerDivRef} />
+      <ScrollToTop outerDivRef={outerDivRef}></ScrollToTop>
     </Outer>
   );
 };

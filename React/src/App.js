@@ -1,12 +1,17 @@
-import DetailsPage from "./components/DetailsPage/DetailsPage";
-import Headers from "./components/Header";
+
+import GlobalStyle from "./GlobalStyle";
+import ScrollBackground from "./components/ScrollBackground";
+
+// import Menu from "./Components/Menu";
+import "./App.css";
 
 function App() {
   return (
-    <>
-      <Headers />
-      <DetailsPage />
-    </>
+    <div>
+      {/* <Menu /> */}
+      <GlobalStyle></GlobalStyle>
+      <ScrollBackground></ScrollBackground>
+    </div>
   );
 }
 
