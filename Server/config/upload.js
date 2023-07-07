@@ -35,7 +35,7 @@ const storage = multerS3({
   contentType: multerS3.AUTO_CONTENT_TYPE,
   bucket: process.env.S3_BUCKET_NAME,
   key: (req, file, cb) => {
-    let dir = "uploads/";
+    let dir = process.env.S3_BUCKET_PATH;
     let datetime = moment().format("YYYYMMDDHHmmss");
     // 한글 처리
     file.originalname = Buffer.from(file.originalname, "latin1").toString(
@@ -46,4 +46,35 @@ const storage = multerS3({
 });
 
 const upload = multer({ storage: storage });
-exports.upload = upload;
+
+function deleteFile(data, callback) {
+  let Objects = [];
+  for (var i in data) {
+    let path = extractPathFromURL(data[i].url);
+    Objects.push({ Key: path });
+  }
+  s3.deleteObjects(
+    {
+      Bucket: process.env.S3_BUCKET_NAME,
+      Delete: {
+        Objects,
+      },
+    },
+    (err, data) => {
+      if (err) {
+        throw err;
+      } else {
+        console.log("s3 Object", data);
+      }
+    }
+  );
+}
+
+// 객체로 접근하기 위해 경로를 디코딩함
+function extractPathFromURL(url) {
+  const urlObj = new URL(url);
+  const path = decodeURIComponent(urlObj.pathname);
+  return path;
+}
+
+module.exports = { upload, deleteFile };

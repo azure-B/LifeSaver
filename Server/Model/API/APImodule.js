@@ -3,18 +3,13 @@ const speciesAPI = require("./speciesAPI");
 const Module = {
   findAll: async () => {
     const specieAPI = speciesAPI;
-    const resultObj = {};
 
-    for await (const obj of speciesAPI) {
-      resultObj[obj.이름] = obj;
-    }
-
-    return resultObj;
+    return specieAPI;
   },
 
   searchCondition: async (objs) => {
     const specieAPI = speciesAPI;
-    const resultObj = {};
+    let resultObj;
     const { name, classification, endangered } = objs;
 
     const filterByName = (obj) => obj.이름.includes(name);
@@ -32,36 +27,27 @@ const Module = {
     if (name && !classification && !endangered) {
       // only Name search
       const filterSpecieAPI = specieAPI.filter(filterByName);
-
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
+      resultObj = filterSpecieAPI;
       //
     } else if (classification && !name && !endangered) {
       // only classification search
       const filterSpecieAPI = specieAPI.filter(filterByClassification);
+      resultObj = filterSpecieAPI;
 
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
       //
     } else if (endangered && !name && !classification) {
       // only endangered search
       const filterSpecieAPI = specieAPI.filter(filterByEndangered);
+      resultObj = filterSpecieAPI;
 
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
       //
     } else if (name && endangered && !classification) {
       // name && endangered search
       const filterSpecieAPI = speciesAPI
         .filter(filterByName)
         .filter(filterByEndangered);
+      resultObj = filterSpecieAPI;
 
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
       //
     } else if (name && classification && !endangered) {
       console.log("hit");
@@ -69,21 +55,18 @@ const Module = {
       const filterSpecieAPI = specieAPI
         .filter(filterByName)
         .filter(filterByClassification);
+      resultObj = filterSpecieAPI;
 
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
       //
     } else if (classification && endangered && !name) {
       // classification && endangered search
       const filterSpecieAPI = speciesAPI
         .filter(filterByClassification)
         .filter(filterByEndangered);
-
-      for await (const obj of filterSpecieAPI) {
-        resultObj[obj.이름] = obj;
-      }
+      resultObj = filterSpecieAPI;
     }
+
+    console.log(resultObj);
 
     return resultObj;
   },

@@ -8,6 +8,7 @@ function PostList() {
   const [list, setList] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [canWrite, setCanWrite] = useState(false);
 
   const apiGetPosts = async (page) => {
     try {
@@ -16,6 +17,8 @@ function PostList() {
       });
       setList(response.data.posts);
       setTotalPages(response.data.totalPages);
+      setCanWrite(response.data.canWritePost);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +39,7 @@ function PostList() {
 
   return (
     <>
-      <button onClick={navigateToWritePage}>글쓰기</button>
+      {canWrite && <button onClick={navigateToWritePage}>글쓰기</button>}
       <table className="list">
         <thead>
           <tr>
