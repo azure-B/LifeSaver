@@ -13,9 +13,9 @@ function PostEdit() {
 
   // 여러 개의 첨부파일을 files에 넣는 함수
   const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files);
+    const fileArray = Array.from(e.target.files);
     const reader = new FileReader();
-    setSelectedFiles([...selectedFiles, ...files]);
+    setSelectedFiles([...selectedFiles, ...fileArray]);
     return new Promise((resolve) => {
       reader.onload = () => {
         setFiles(reader.result || null);
@@ -68,11 +68,12 @@ function PostEdit() {
 
       setTitle(response.data.post.title);
       setContent(response.data.post.content);
-      setFiles(response.data.post.images);
+      const resImg = response.data.post.images;
+      const resImgArr = resImg.map((img) => img.url);
+      setFiles(resImgArr);
     };
     apiGetPost();
   }, [postId]);
-
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -96,8 +97,9 @@ function PostEdit() {
         <div>
           <label htmlFor="file">첨부 파일:</label>
           <input type="file" onChange={handleFileSelect} multiple={true} />
+          <div>현재 파일 갯수: {files.length}</div>
         </div>
-        <button type="submit">등록</button>
+        <button type="submit">수정</button>
       </form>
     </>
   );

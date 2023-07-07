@@ -5,6 +5,7 @@ import { SERVER } from "../../lib/config";
 
 function PostWrite() {
   const navigate = useNavigate();
+  const page = "/NoticeBoard";
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
@@ -51,7 +52,7 @@ function PostWrite() {
 
           // 해당 글의 상세페이지로 이동
           const postId = response.data.postId;
-          navigate(`/posts/${postId}`);
+          navigate(`${page}/${postId}`);
         })
         .catch((error) => {
           alert(error.response.data);
