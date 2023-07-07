@@ -1,7 +1,6 @@
+
 import GlobalStyle from "./GlobalStyle";
 import ScrollBackground from "./components/ScrollBackground";
-
-import { useState } from "react";
 
 // import Menu from "./Components/Menu";
 import "./App.css";
