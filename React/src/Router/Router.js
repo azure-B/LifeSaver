@@ -2,11 +2,11 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Registers from "../components/Registers";
 import Login from "../components/Login";
-import Posts from "./../Components/Posts/Posts";
-import PostList from "./../Components/Posts/PostList";
-import PostDetail from "./../Components/Posts/PostDetail";
-import PostWrite from "./../Components/Posts/PostWrtie";
-import PostEdit from "./../Components/Posts/PostEdit";
+import Posts from "./../components/Posts/Posts";
+import PostList from "./../components/Posts/PostList";
+import PostDetail from "./../components/Posts/PostDetail";
+import PostWrite from "./../components/Posts/PostWrtie";
+import PostEdit from "./../components/Posts/PostEdit";
 
 const RouterData = createBrowserRouter([
   {
