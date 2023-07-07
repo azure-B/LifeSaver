@@ -36,6 +36,7 @@ const Module = {
       for await (const obj of filterSpecieAPI) {
         resultObj[obj.이름] = obj;
       }
+      //
     } else if (classification && !name && !endangered) {
       // only classification search
       const filterSpecieAPI = specieAPI.filter(filterByClassification);
@@ -43,6 +44,7 @@ const Module = {
       for await (const obj of filterSpecieAPI) {
         resultObj[obj.이름] = obj;
       }
+      //
     } else if (endangered && !name && !classification) {
       // only endangered search
       const filterSpecieAPI = specieAPI.filter(filterByEndangered);
@@ -50,6 +52,7 @@ const Module = {
       for await (const obj of filterSpecieAPI) {
         resultObj[obj.이름] = obj;
       }
+      //
     } else if (name && endangered && !classification) {
       // name && endangered search
       const filterSpecieAPI = speciesAPI
@@ -59,6 +62,7 @@ const Module = {
       for await (const obj of filterSpecieAPI) {
         resultObj[obj.이름] = obj;
       }
+      //
     } else if (name && classification && !endangered) {
       console.log("hit");
       // name && classification search
@@ -69,6 +73,7 @@ const Module = {
       for await (const obj of filterSpecieAPI) {
         resultObj[obj.이름] = obj;
       }
+      //
     } else if (classification && endangered && !name) {
       // classification && endangered search
       const filterSpecieAPI = speciesAPI

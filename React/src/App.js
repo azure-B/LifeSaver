@@ -1,5 +1,5 @@
 import GlobalStyle from "./GlobalStyle";
-import ScrollBackground from "./Components/ScrollBackground";
+import ScrollBackground from "./components/ScrollBackground";
 // import Menu from "./Components/Menu";
 import "./App.css";
 

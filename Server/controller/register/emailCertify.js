@@ -1,4 +1,3 @@
-const { response } = require("express");
 const Module = require("../../Model/resgister,login/emailCertifyModule");
 const models = require("../../models");
 

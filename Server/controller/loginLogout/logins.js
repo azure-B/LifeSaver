@@ -2,17 +2,16 @@ const Module = require("../../Model/resgister,login/loginModules");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
-  const comparePw = await Module.comparePw(email, password);
-  const compareEmail = await Module.compareEmail(email);
+  const comparePwAndEmail = await Module.comparePwAndEmail(email, password);
+
+  console.log(comparePwAndEmail);
 
   const message = {
     error: "아이디 혹은 비밀번호를 확인해 주세요",
     success: "로그인 성공",
   };
 
-  if (!compareEmail || !comparePw) {
-    return res.send({ message: message.error });
-  } else {
+  if (comparePwAndEmail) {
     try {
       const { id } = await Module.userInfo(email);
       req.session.user = {
@@ -34,5 +33,7 @@ exports.login = async (req, res) => {
         .status(500)
         .send({ message: "에러가 발생했습니다.", result: false });
     }
+  } else {
+    return res.send({ message: message.error });
   }
 };
