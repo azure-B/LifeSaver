@@ -1,8 +1,9 @@
 const models = require("../models");
 
 module.exports = {
-  GetUsers: async (req, res) => {
-    const users = await models.db.users.findAll();
-    return res.send({ users });
+  // 로그인 상태를 확인 하는 함수 (true/false)
+  CheckLoginStatus: async (req, res) => {
+    const loggedIn = req.session.user ? true : false;
+    return loggedIn;
   },
 };
