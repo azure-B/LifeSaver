@@ -1,5 +1,8 @@
 import { RxHamburgerMenu, RxPerson } from "react-icons/rx";
 import styled from "styled-components";
+import Login from "./Login";
+import { useState } from "react";
+import Modal from "./Modal";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -107,6 +110,16 @@ const TransButton = styled.div`
 `;
 
 function Header({ scrollIndex }) {
+  const [showLogin, setShowLogin] = useState(false);
+
+  const handleLoginOpen = () => {
+    setShowLogin(true);
+  };
+
+  const handleLoginClose = () => {
+    setShowLogin(false);
+  };
+
   return (
     <HeaderContainer scrollIndex={scrollIndex}>
       <HeaderDiv>
@@ -120,11 +133,15 @@ function Header({ scrollIndex }) {
 
         <MypageContainer>
           <TransButton scrollIndex={scrollIndex}>EN</TransButton>
-          <IconButton scrollIndex={scrollIndex}>
+          <IconButton scrollIndex={scrollIndex} onClick={handleLoginOpen}>
             <RxPerson />
           </IconButton>
         </MypageContainer>
       </HeaderDiv>
+
+      <Modal open={showLogin} close={handleLoginClose} header="Login">
+        <Login />
+      </Modal>
     </HeaderContainer>
   );
 }
