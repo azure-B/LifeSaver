@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+import Registers from "../components/Registers";
+import Login from "../components/Login";
 import Posts from "./../Components/Posts/Posts";
 import PostList from "./../Components/Posts/PostList";
 import PostDetail from "./../Components/Posts/PostDetail";
@@ -22,6 +24,14 @@ const RouterData = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Registers></Registers>,
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
   },
 ]);
 

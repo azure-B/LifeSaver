@@ -9,7 +9,7 @@ const ScrollToTopButton = styled.button`
   right: 50px;
   width: 50px;
   height: 50px;
-  background-color: #bbb;
+  background-color: rgba(0, 0, 0, 0.6);
   opacity: 0.6;
   border-radius: 50%;
   display: flex;
@@ -18,6 +18,8 @@ const ScrollToTopButton = styled.button`
   cursor: pointer;
   transition: background-color 0.2s;
   border: none;
+  color: #bbb;
+  font-size: 1.5rem;
 
   &:before {
     justify-content: center;

@@ -41,11 +41,12 @@ const TextOverImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5); // 텍스트 배경의 투명도 조절
-  color: white; // 텍스트 색상
-  font-weight: bold; // 텍스트 스타일 설정
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #bbb;
+  font-weight: bold;
   opacity: 0;
   transition: all 0.3s ease;
+  font-size: 1.5rem;
 
   &:hover {
     opacity: 1;
@@ -55,7 +56,6 @@ const TextOverImage = styled.div`
 const LinkPage = () => {
   const history = useNavigate();
 
-  // Handle click event and redirect to the respective page
   const handleClick = (path) => {
     history.push(path);
   };
