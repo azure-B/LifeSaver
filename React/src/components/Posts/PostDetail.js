@@ -28,7 +28,7 @@ function PostDetail() {
       })
       .then((response) => {
         alert(response.data);
-        navigate(`${page}/list`);
+        navigate(`${page}`);
       })
       .catch((error) => {
         alert(error.response.data);

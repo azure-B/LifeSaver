@@ -1,7 +1,7 @@
 const models = require("../models");
 const fs = require("fs");
 const moment = require("moment");
-
+const { deleteFile } = require("../config/upload");
 module.exports = {
   // 전체 게시물 조회 (페이징 처리)
   GetPosts: async (req, res) => {
@@ -10,6 +10,11 @@ module.exports = {
     const offset = (page - 1) * limit;
     const totalCount = await models.db.posts.count();
     const totalPages = Math.ceil(totalCount / limit);
+    let canWritePost = false;
+    const userSession = req.session.user ? req.session.user : null;
+    if (userSession) {
+      canWritePost = true;
+    }
     const result = await models.db.posts.findAll({
       attributes: ["id", "title", "content", "created_at", "updated_at"],
       include: [
@@ -34,7 +39,7 @@ module.exports = {
         name: post["user.name"],
       };
     });
-    return res.send({ posts, totalPages });
+    return res.send({ posts, totalPages, canWritePost });
   },
 
   // 개별 게시물 조회
@@ -144,7 +149,6 @@ module.exports = {
       let userId = null;
       let isAuthor = false;
       const existingPost = await models.db.posts.findByPk(postId);
-
       if (!existingPost) {
         await t.rollback();
         return res.status(404).send("존재하지 않는 게시물입니다.");
@@ -161,12 +165,15 @@ module.exports = {
         return res.status(403).send("권한이 없습니다.");
       }
       if (req.files && req.files.length > 0) {
+        console.log("process - start");
         {
           // 이전파일 삭제
           const existingFiles = await models.db.images.findAll({
             where: { post_id: existingPost.id },
             transaction: t,
           });
+
+          deleteFile(existingFiles);
 
           const fileDeletionPromises = existingFiles.map(async (file) => {
             await models.db.images.destroy({
@@ -242,9 +249,9 @@ module.exports = {
         transaction: t,
       });
 
+      deleteFile(existingFiles);
+
       const fileDeletionPromises = existingFiles.map(async (file) => {
-        const filePath = path.join(__dirname, "../", file.url);
-        await fs.promises.unlink(filePath);
         await models.db.images.destroy({
           where: { id: file.id },
           transaction: t,
