@@ -1,9 +1,11 @@
 var DataTypes = require("sequelize").DataTypes;
+var _auth = require("./auth");
 var _images = require("./images");
 var _posts = require("./posts");
 var _users = require("./users");
 
 function initModels(sequelize) {
+  var auth = _auth(sequelize, DataTypes);
   var images = _images(sequelize, DataTypes);
   var posts = _posts(sequelize, DataTypes);
   var users = _users(sequelize, DataTypes);
@@ -14,6 +16,7 @@ function initModels(sequelize) {
   users.hasMany(posts, { as: "posts", foreignKey: "user_id" });
 
   return {
+    auth,
     images,
     posts,
     users,
