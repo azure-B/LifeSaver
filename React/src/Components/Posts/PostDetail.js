@@ -12,6 +12,7 @@ function PostDetail() {
   const [isAuthor, setIsAuthor] = useState(true);
 
   const navigateToEditPage = () => {
+    // TODO :페이지명 수정
     navigate(`${page}/edit/${postId}`);
   };
 
@@ -56,7 +57,7 @@ function PostDetail() {
 
   return (
     <>
-      {!isAuthor && (
+      {isAuthor && (
         <>
           <button onClick={navigateToEditPage}>수정하기</button>
           <button onClick={handleDelete}>삭제하기</button>
