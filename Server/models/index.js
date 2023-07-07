@@ -10,6 +10,7 @@ const database = config.database;
 
 const sequelize = new Sequelize(database, username, password, {
   dialect: config.dialect,
+  host: `127.0.0.1`,
 });
 const db = initModels(sequelize);
 
