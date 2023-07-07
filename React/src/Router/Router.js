@@ -12,18 +12,7 @@ const RouterData = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [
-      {
-        path: "/NoticeBoard",
-        element: <Posts />,
-        children: [
-          { path: "", element: <PostList /> },
-          { path: ":postId", element: <PostDetail /> },
-          { path: "write", element: <PostWrite /> },
-          { path: "edit/:postId", element: <PostEdit /> },
-        ],
-      },
-    ],
+    children: [],
   },
   {
     path: "/register",
@@ -32,6 +21,16 @@ const RouterData = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+  },
+  {
+    path: "/NoticeBoard",
+    element: <Posts />,
+    children: [
+      { path: "", element: <PostList /> },
+      { path: ":postId", element: <PostDetail /> },
+      { path: "write", element: <PostWrite /> },
+      { path: "edit/:postId", element: <PostEdit /> },
+    ],
   },
 ]);
 
