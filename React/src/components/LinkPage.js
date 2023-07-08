@@ -54,24 +54,24 @@ const TextOverImage = styled.div`
 `;
 
 const LinkPage = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
-  const handleClick = (path) => {
-    history.push(path);
+  const handleClick = (classification) => {
+    navigate("/animals", { state: { classification } });
   };
 
   return (
     <PageSection>
       <ImageWrapper>
-        <ImageContainer onClick={() => handleClick("/page-1")}>
+        <ImageContainer onClick={() => handleClick("포유류")}>
           <Image src="/images/image-1.jpg" alt="포유류" />
           <TextOverImage>포유류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("/page-2")}>
+        <ImageContainer onClick={() => handleClick("조류")}>
           <Image src="/images/image-2.jpg" alt="조류" />
           <TextOverImage>조류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("/page-3")}>
+        <ImageContainer onClick={() => handleClick("어류")}>
           <Image src="/images/image-3.jpg" alt="어류" />
           <TextOverImage>어류</TextOverImage>
         </ImageContainer>
