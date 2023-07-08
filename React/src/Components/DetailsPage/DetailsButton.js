@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 function ButtonComponent({ onReturn, onNext, onMain }) {
   const ButtonDiv = styled.div`
+    z-index: 2;
     position: fixed;
-    bottom: 5%;
+    bottom: 3%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -15,8 +16,10 @@ function ButtonComponent({ onReturn, onNext, onMain }) {
     border: none;
     font-size: 2rem;
     margin: 1rem;
+    color: white;
+
     &:hover {
-      color: white;
+      color: gray;
     }
   `;
 

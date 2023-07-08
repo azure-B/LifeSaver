@@ -46,8 +46,6 @@ function DetailsSearch({ Exit, Search }) {
     &:hover {
       color: rgba(0, 0, 0, 0.1);
     }
-    position: relative;
-    top: 1rem;
   `;
 
   const SearchInput = styled.input`
@@ -83,6 +81,12 @@ function DetailsSearch({ Exit, Search }) {
     height: 1.3rem;
   `;
 
+  const SearchForm = styled.form`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  `;
+
   const onVaild = async ({ name, endangered }) => {
     Search(name, endangered);
   };
@@ -94,21 +98,24 @@ function DetailsSearch({ Exit, Search }) {
   return (
     <SearchDiv>
       <SearchInputDiv>
-        <form onSubmit={handleSubmit(onVaild, onInValid)}>
-          <SearchInput
-            placeholder="동물명 / 빈칸입력시 전체검색"
-            {...register("name")}
-          />
+        <SearchForm onSubmit={handleSubmit(onVaild, onInValid)}>
+          <div>
+            <SearchInput
+              placeholder="동물명 / 빈칸입력시 전체검색"
+              {...register("name")}
+            />
+
+            <DetailsSelection {...register("endangered")}>
+              <option value="">멸종위기등급</option>
+              <option value="">전체검색</option>
+              <option value="1">멸종위기 야생생물 Ⅰ급</option>
+              <option value="2">멸종위기 야생생물 Ⅱ급</option>
+            </DetailsSelection>
+          </div>
           <SearchButton className="material-symbols-outlined" type="submit">
             search
           </SearchButton>
-          <DetailsSelection {...register("endangered")}>
-            <option value="">멸종위기등급</option>
-            <option value="">전체검색</option>
-            <option value="1">멸종위기 야생생물 Ⅰ급</option>
-            <option value="2">멸종위기 야생생물 Ⅱ급</option>
-          </DetailsSelection>
-        </form>
+        </SearchForm>
         <ExitButton className="material-symbols-outlined" onClick={Exit}>
           close
         </ExitButton>
