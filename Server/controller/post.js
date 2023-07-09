@@ -164,40 +164,6 @@ module.exports = {
       if (!isAuthor) {
         return res.status(403).send("권한이 없습니다.");
       }
-      if (req.files && req.files.length > 0) {
-        console.log("process - start");
-        {
-          // 이전파일 삭제
-          const existingFiles = await models.db.images.findAll({
-            where: { post_id: existingPost.id },
-            transaction: t,
-          });
-
-          deleteFile(existingFiles);
-
-          const fileDeletionPromises = existingFiles.map(async (file) => {
-            await models.db.images.destroy({
-              where: { id: file.id },
-              transaction: t,
-            });
-          });
-          await Promise.all(fileDeletionPromises);
-
-          // 첨부 파일 수정
-
-          // 새 첨부파일 업로드
-          const filePromises = req.files.map(async (file) => {
-            const fileData = {
-              url: file.location,
-              post_id: existingPost.id,
-            };
-            await models.db.images.create(fileData, { transaction: t });
-          });
-
-          await Promise.all(filePromises);
-        }
-      }
-
       // 게시물 업데이트
       await existingPost.update(
         {

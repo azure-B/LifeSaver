@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER } from "../../lib/config";
@@ -10,18 +10,30 @@ function PostWrite() {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
+  const fileInputRef = useRef(null);
 
-  // 여러 개의 첨부파일을 files에 넣는 함수
-  const handleFileSelect = (e) => {
+  const handleFileSelect = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const reader = new FileReader();
-    setSelectedFiles([...selectedFiles, ...files]);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setFiles(reader.result || null);
-        resolve();
-      };
-    });
+    const totalSelectedFiles = selectedFiles.length + files.length;
+
+    if (totalSelectedFiles <= 10) {
+      setSelectedFiles([...selectedFiles, ...files]);
+
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewUrls((prevUrls) => [...prevUrls, reader.result]);
+        };
+        reader.readAsDataURL(file);
+      });
+    }  else {
+      alert("파일은 10개까지만 등록이 가능합니다.");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -83,7 +95,43 @@ function PostWrite() {
         </div>
         <div>
           <label htmlFor="file">첨부 파일:</label>
-          <input type="file" onChange={handleFileSelect} multiple={true} />
+          <button type="button" onClick={handleFileSelect}>
+            파일 선택
+          </button>
+          <div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleFileChange}
+              multiple={true}
+              style={{ display: "none" }}
+            />
+          </div>
+          <div>
+            {/* 파일 미리보기 */}
+            {previewUrls.map((url, index) => (
+              <div key={index}>
+                <img
+                  src={url}
+                  alt="File Preview"
+                  style={{ width: "100px", height: "100px" }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPreviewUrls((prevUrls) =>
+                      prevUrls.filter((_, i) => i !== index)
+                    );
+                    setSelectedFiles((prevFiles) =>
+                      prevFiles.filter((_, i) => i !== index)
+                    );
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
         <button type="submit">등록</button>
       </form>
