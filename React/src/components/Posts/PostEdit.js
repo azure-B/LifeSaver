@@ -2,6 +2,93 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER } from "../../lib/config";
+import styled from "styled-components";
+
+const PostEditArea = styled.div`
+  margin: 0 auto;
+`;
+const EditForm = styled.form`
+  background-color: #fff;
+  width: 86%;
+  max-width: 700px;
+  padding: 5% 4% 6% 4%;
+  margin: 2%;
+  margin: 0 auto;
+  border-radius: 3%;
+  box-shadow: 7px 3px 20px 3px #7f7f7f;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 180px;
+  resize: none;
+  font-family: "Nanum Gothic";
+`;
+
+const FilePreviewContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+`;
+
+const FilePreviewItem = styled.div`
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+`;
+
+const FilePreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+`;
+
+const SubmitButton = styled.button`
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #525353;
+    color: #fff;
+  }
+`;
+const SubmitButtonArea = styled.div`
+  text-align: right;
+`;
 
 function PostEdit() {
   const navigate = useNavigate();
@@ -13,19 +100,22 @@ function PostEdit() {
 
   const renderFilePreviews = () => {
     return previewUrls.map((file, index) => (
-      <div key={index}>
-        <img
-          src={file.url}
-          alt={`File Preview ${index}`}
-          style={{ width: "100px", height: "100px" }}
-        />
-      </div>
+      <FilePreviewItem key={index}>
+        <FilePreviewImage src={file.url} alt={`File Preview ${index}`} />
+      </FilePreviewItem>
     ));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!title) {
+      alert("제목을 입력해주세요.");
+      return;
+    }
+    if (!content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     try {
       const postData = {
         title: title,
@@ -72,30 +162,38 @@ function PostEdit() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">제목:</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="content">내용:</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="file">첨부 파일:</label>
-          <div>{renderFilePreviews()}</div>
-        </div>
-        <button type="submit">수정</button>
-      </form>
+      <PostEditArea>
+        <EditForm onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label htmlFor="title">제목</Label>
+            <Input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="content">내용</Label>
+            <TextArea
+              id="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </FormGroup>
+          {files.length > 0 && (
+            <FormGroup>
+              <Label htmlFor="file">첨부 파일</Label>
+              <FilePreviewContainer>
+                {renderFilePreviews()}
+              </FilePreviewContainer>
+            </FormGroup>
+          )}
+          <SubmitButtonArea>
+            <SubmitButton type="submit">수정</SubmitButton>
+          </SubmitButtonArea>
+        </EditForm>
+      </PostEditArea>
     </>
   );
 }
