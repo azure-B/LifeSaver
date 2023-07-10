@@ -14,9 +14,10 @@ function DeatilsImg({ path, animation }) {
   }
   `;
   const ImgsDiv = styled.div`
-    height: 33rem;
-    width: 44rem;
+    height: 33.2rem;
+    width: 44.2rem;
     overflow: hidden;
+    text-align: center;
   `;
 
   const Imgs = styled.img`
@@ -24,6 +25,8 @@ function DeatilsImg({ path, animation }) {
     width: 44rem;
     position: relative;
     animation: ${animation ? AnimeImg : ""} 3.6s ease-in-out;
+    filter: grayscale(40%);
+    border: 0.1rem solid white;
   `;
 
   return (

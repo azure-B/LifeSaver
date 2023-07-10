@@ -69,12 +69,14 @@ function DetailsContent({ animal, animation, fade }) {
   };
 
   const MainDIv = styled.div`
+    z-index: 1;
     width: 100%;
     height: 100vh;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    color: white;
 
     animation: ${fade ? FadeOut : ""} 1s ease-in-out;
   `;
@@ -85,6 +87,7 @@ function DetailsContent({ animal, animation, fade }) {
     overflow: scroll;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
+    padding-left: 1rem;
 
     /* Webkit 기반 브라우저용 스크롤바 숨기기 */
     ::-webkit-scrollbar {
@@ -106,13 +109,24 @@ function DetailsContent({ animal, animation, fade }) {
   `;
 
   const MovingLine = styled.div`
-    border: 1px solid black;
-    background-color: black;
+    z-index: 1;
+    border: 1px solid white;
+    background-color: white;
     height: 33rem;
     width: 0.05rem;
     position: relative;
     animation: ${animation ? AnimeLine : ""} 1.3s ease-in-out;
   `;
+
+  const MovingLines = styled.div`
+    z-index: 1;
+    background-color: none;
+    height: 33rem;
+    width: 0.1rem;
+    position: relative;
+    overflow: hidden;
+  `;
+
   const AnimalsName = styled.h2`
     position: relative;
     animation: ${animation ? AnimeName : ""} 2.6s ease-in-out;
@@ -137,7 +151,9 @@ function DetailsContent({ animal, animation, fade }) {
       {animal && (
         <MainDIv>
           <DeatilsImg path={path} animation={animation} />
-          <MovingLine />
+          <MovingLines>
+            <MovingLine />
+          </MovingLines>
           <ContentDiv>
             <AnimalsName>{이름}</AnimalsName>
             <AnimalsEnName>
