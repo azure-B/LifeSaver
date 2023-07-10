@@ -1,4 +1,3 @@
-
 import GlobalStyle from "./GlobalStyle";
 import ScrollBackground from "./components/ScrollBackground";
 
