@@ -7,6 +7,7 @@ import PostList from "./../components/Posts/PostList";
 import PostDetail from "./../components/Posts/PostDetail";
 import PostWrite from "./../components/Posts/PostWrtie";
 import PostEdit from "./../components/Posts/PostEdit";
+import DetailsPage from "../components/DetailsPage/DetailsPage";
 
 const RouterData = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const RouterData = createBrowserRouter([
       { path: "write", element: <PostWrite /> },
       { path: "edit/:postId", element: <PostEdit /> },
     ],
+  },
+  {
+    path: "/animals",
+    element: <DetailsPage />,
   },
 ]);
 

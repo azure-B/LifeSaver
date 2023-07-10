@@ -42,6 +42,7 @@ function Regi() {
 
     axios.post(`${SERVER}/api/mail`, { email }).then((result) => {
       console.log(result.data);
+      console.log(result);
       SetMailSendmessage(result.data.message);
 
       //전송완료 메일
@@ -78,7 +79,7 @@ function Regi() {
           type="text"
         />
         <button type="button" onClick={mailSender}>
-          인증기기
+          인증
         </button>
         <div>{mailSendMessage && mailSendMessage}</div>
 
