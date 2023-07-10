@@ -27,20 +27,16 @@ function PostEdit() {
     e.preventDefault();
 
     try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("content", content);
-
-      await axios.patch(`${SERVER}/api/posts/${postId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const postData = {
+        title: title,
+        content: content,
+      };
+      await axios.patch(`${SERVER}/api/posts/${postId}`, postData, {
         withCredentials: true,
       });
       alert("게시물이 수정되었습니다.");
       setTitle("");
       setContent("");
-      setFiles([]);
       setPreviewUrls([]);
       navigate(`/NoticeBoard/${postId}`);
     } catch (error) {
