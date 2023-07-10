@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { SERVER } from "../lib/config";
 import { useState } from "react";
+import styled from "styled-components";
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -25,7 +26,10 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onVaild, onInValid)}>
+    <form
+      onSubmit={handleSubmit(onVaild, onInValid)}
+      style={{ position: "relative" }}
+    >
       <input
         placeholder="아이디"
         {...register("email", {
@@ -46,11 +50,29 @@ function Login() {
       />
       <div>{loginMessage && loginMessage}</div>
 
-      <div>
-        <button type="submit">로그인</button>
-      </div>
+      <LoginButton>로그인</LoginButton>
+      <JoinButton>회원가입</JoinButton>
     </form>
   );
 }
+
+const LoginButton = styled.button`
+  position: absolute;
+  right: 6px;
+  top: -1px;
+  background-color: black;
+  color: white;
+  padding: 23px;
+  border-radius: 10px;
+  font-weight: bold;
+`;
+
+const JoinButton = styled.button`
+  position: relative;
+  top: 7px;
+  left: -4px;
+  font-size: 6pt;
+  font-weight: bold;
+`;
 
 export default Login;
