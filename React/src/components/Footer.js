@@ -75,7 +75,7 @@ const Footerpage = styled.ul`
 `;
 
 const Footerhead = styled.li`
-  font-size: 40px;
+  font-size: 50px;
   padding-bottom: 0px;
   text-align: center;
 `;

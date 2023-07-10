@@ -30,7 +30,7 @@ const MainTitle = styled.div`
   font-size: 3.5rem;
   color: ${({ scrollIndex }) =>
     scrollIndex === 1
-      ? "#333"
+      ? "#ddd"
       : scrollIndex === 2
       ? "#bbb"
       : scrollIndex === 3
@@ -61,7 +61,7 @@ const IconButton = styled.div`
   cursor: pointer;
   color: ${({ scrollIndex }) =>
     scrollIndex === 1
-      ? "#333"
+      ? "#bbb"
       : scrollIndex === 2
       ? "#bbb"
       : scrollIndex === 3
@@ -92,7 +92,7 @@ const TransButton = styled.div`
   cursor: pointer;
   color: ${({ scrollIndex }) =>
     scrollIndex === 1
-      ? "#333"
+      ? "#bbb"
       : scrollIndex === 2
       ? "#bbb"
       : scrollIndex === 3
