@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Login from "./Login";
 import { useState } from "react";
 import Modal from "./Modal";
+import Menu from "./Menu";
+import Menumodal from "./Menumodal";
+import Loginmodal from "./LoginModal";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -111,6 +114,7 @@ const TransButton = styled.div`
 
 function Header({ scrollIndex }) {
   const [showLogin, setShowLogin] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleLoginOpen = () => {
     setShowLogin(true);
@@ -120,11 +124,19 @@ function Header({ scrollIndex }) {
     setShowLogin(false);
   };
 
+  const handleMenuOpen = () => {
+    setShowMenu(true);
+  };
+
+  const handleMenuClose = () => {
+    setShowMenu(false);
+  };
+
   return (
     <HeaderContainer scrollIndex={scrollIndex}>
       <HeaderDiv>
         <MenuButtonDiv>
-          <IconButton scrollIndex={scrollIndex}>
+          <IconButton scrollIndex={scrollIndex} onClick={handleMenuOpen}>
             <RxHamburgerMenu />
           </IconButton>
         </MenuButtonDiv>
@@ -139,9 +151,12 @@ function Header({ scrollIndex }) {
         </MypageContainer>
       </HeaderDiv>
 
-      <Modal open={showLogin} close={handleLoginClose} header="Login">
+      <Loginmodal open={showLogin} close={handleLoginClose} header="Login">
         <Login />
-      </Modal>
+      </Loginmodal>
+      <Menumodal open={showMenu} close={handleMenuClose}>
+        <Menu />
+      </Menumodal>
     </HeaderContainer>
   );
 }
