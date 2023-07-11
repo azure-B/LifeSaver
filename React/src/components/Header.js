@@ -5,6 +5,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import Menu from "./Menu";
 import Menumodal from "./Menumodal";
+import Loginmodal from "./LoginModal";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -150,9 +151,9 @@ function Header({ scrollIndex }) {
         </MypageContainer>
       </HeaderDiv>
 
-      <Modal open={showLogin} close={handleLoginClose} header="Login">
+      <Loginmodal open={showLogin} close={handleLoginClose} header="Login">
         <Login />
-      </Modal>
+      </Loginmodal>
       <Menumodal open={showMenu} close={handleMenuClose}>
         <Menu />
       </Menumodal>
