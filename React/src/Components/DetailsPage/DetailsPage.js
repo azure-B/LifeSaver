@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { SERVER } from "../../lib/config";
 import DetailsContent from "./DetailsContent";
@@ -6,14 +7,10 @@ import DetailsButton from "./DetailsButton";
 import DetailsSearch from "./DetailsSearch";
 import { keyframes, styled } from "styled-components";
 import Header from "../Header";
-import { useLocation } from "react-router-dom";
 
-function DetailsPage() {
-  const { state } = useLocation();
-  const storedProps = JSON.parse(localStorage.getItem("props"));
-  const initialProps = state || storedProps || {};
-  const [props, setProps] = useState(initialProps);
-  const [bgAnimeSet, SetBgAnime] = useState(true);
+const DetailsPage = () => {
+  const storedProps = useSelector((state) => state.props);
+  const dispatch = useDispatch();
   const [APINum, SetNum] = useState(0);
   const [API, SetAPI] = useState([]);
   const [Visible, SetVisible] = useState(false);
@@ -21,106 +18,117 @@ function DetailsPage() {
   const [fade, setFade] = useState(false);
   const [errorMsg, setErrMsg] = useState(false);
 
-  // props 변경 시 localStorage에 저장
   useEffect(() => {
-    localStorage.setItem("props", JSON.stringify(props));
-  }, [props]);
-
-  // 페이지 진입 시 localStorage에서 props 복원
-  useEffect(() => {
-    const storedProps = localStorage.getItem("props");
-    if (storedProps) {
-      setProps(JSON.parse(storedProps));
-    }
+    SetVisible(false);
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      SetBgAnime(false);
-    }, 300);
-  });
 
   const ReturnEvent = () => {
     if (APINum > 0) {
       setAni(false);
       setFade(true);
-
       setTimeout(() => {
         setFade(false);
         setAni(true);
-        SetNum(APINum - 1);
+        SetNum((prevNum) => prevNum - 1);
       }, 1000);
     } else {
-      return alert("처음입니다");
+      alert("처음입니다");
     }
   };
 
   const SearchButtonEvent = () => {
     setAni(false);
-    SetVisible(!Visible);
+    SetVisible((prevVisible) => !prevVisible);
   };
 
-  const NextEvent = async () => {
+  const NextEvent = () => {
     if (APINum + 1 === API.length) {
-      return alert("마지막입니다");
+      alert("마지막입니다");
     } else {
       setAni(false);
       setFade(true);
       setTimeout(() => {
         setFade(false);
         setAni(true);
-        SetNum(APINum + 1);
+        SetNum((prevNum) => prevNum + 1);
       }, 1000);
     }
-  };
-
-  const ExitButtonEvent = () => {
-    SetVisible(!Visible);
   };
 
   const SearchEvent = async (name, endangered) => {
     setErrMsg(false);
     SetAPI([]);
-    await axios
-      .get(`${SERVER}/api/speciesSearch/condition`, {
-        params: { name, classification: props.classification, endangered },
-      })
-      .then((result) => {
-        SetAPI(result.data);
-        SetVisible(!Visible);
-        setAni(true);
-        SetNum(0);
-
-        if (!result.data[0]) setErrMsg(true);
-      });
+    try {
+      const response = await axios.get(
+        `${SERVER}/api/speciesSearch/condition`,
+        {
+          params: {
+            name,
+            classification: storedProps.classification,
+            endangered,
+          },
+        }
+      );
+      const data = response.data;
+      SetAPI(data);
+      SetVisible((prevVisible) => !prevVisible);
+      setAni(true);
+      SetNum(0);
+      if (!data[0]) setErrMsg(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     SetNum(0);
-    axios
-      .get(`${SERVER}/api/speciesSearch/condition`, {
-        params: { classification: props.classification },
-      })
-      .then((result) => {
-        SetAPI(result.data);
-      });
-  }, [props.classification]);
+    if (storedProps.classification) {
+      axios
+        .get(`${SERVER}/api/speciesSearch/condition`, {
+          params: { classification: storedProps.classification },
+        })
+        .then((result) => {
+          SetAPI(result.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [storedProps.classification]);
 
   const bgAnime = keyframes`
     0%{
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0, 0, 0, 0.4);
     }
     100%{
       background-color: rgba(0, 0, 0, 1);
     }
-    `;
+  `;
+
+  const bgAnime2 = keyframes`
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 0.3;
+    }
+  `;
 
   const DetailsDiv = styled.div`
     z-index: 1 !important;
     background-color: rgba(0, 0, 0, 1);
-
-    animation: ${bgAnimeSet && bgAnime} 0.3s ease-in-out;
+    animation: ${Visible && bgAnime} 0.3s ease-in-out;
   `;
+
+  const backgroundImageUrl = () => {
+    if (storedProps.classification === "포유류") {
+      return "/animals/Background_mammal.jpeg";
+    } else if (storedProps.classification === "조류") {
+      return "/animals/Background_birds.jpeg";
+    } else {
+      return "/animals/Background_fish.jpeg";
+    }
+  };
 
   const BackgroundImage = styled.div`
     position: absolute;
@@ -128,10 +136,11 @@ function DetailsPage() {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("/animals/Background_mammal.jpeg");
-    opacity: 0.3; /* 투명도 조절 */
+    background: url(${backgroundImageUrl()});
+    opacity: 0.3;
     background-size: cover;
     filter: grayscale(90%);
+    animation: ${Visible && bgAnime2} 0.39s ease-in-out;
   `;
 
   const ExamDiv = styled.div`
@@ -142,7 +151,7 @@ function DetailsPage() {
     width: 100%;
     height: 100vh;
     color: #bbb;
-    animation: ${bgAnimeSet && bgAnime} 0.3s ease-in-out;
+    animation: ${bgAnime} 0.39s ease-in-out;
   `;
 
   const TableOfContents = styled.h3`
@@ -170,19 +179,18 @@ function DetailsPage() {
 
         {Visible && (
           <>
-            <DetailsSearch Exit={ExitButtonEvent} Search={SearchEvent} />
+            <DetailsSearch Exit={SearchButtonEvent} Search={SearchEvent} />
           </>
         )}
-        {API[0] ? (
-          <>
-            <DetailsContent animal={API[APINum]} animation={ani} fade={fade} />
-          </>
+
+        {API.length !== 0 ? (
+          <DetailsContent animal={API[APINum]} animation={ani} fade={fade} />
         ) : (
-          <ExamDiv> {errorMsg ? "검색결과가없습니다" : "로딩중"}</ExamDiv>
+          <ExamDiv>{errorMsg && "검색결과가 없습니다"}</ExamDiv>
         )}
       </DetailsDiv>
     </>
   );
-}
+};
 
 export default DetailsPage;
