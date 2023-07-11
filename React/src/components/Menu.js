@@ -29,9 +29,10 @@ function Menu() {
             <br></br>
             <br></br>
             <br></br>
+            <br></br>
             <Menulist>
               <Main>
-                <StyleLink to={"/Main"}>
+                <StyleLink to={"/"}>
                   {lang === "ko" ? "메인" : "MAIN"}
                 </StyleLink>
               </Main>
@@ -61,6 +62,9 @@ function Menu() {
               </NoticeBoard>
             </Menulist>
             <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <Language>
               <Button onClick={() => navigate("ko")}>KO</Button>
               <Button onClick={() => navigate("en")}>EN</Button>
@@ -76,7 +80,7 @@ const Menusection = styled.ul`
   position: absolute;
   margin: 0 auto;
   width: 100%;
-  height: 120%;
+  height: 110%;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -86,12 +90,13 @@ const Menusection = styled.ul`
 `;
 
 const Menuhead = styled.li`
-  font-size: 30pt;
+  font-size: 3.5rem;
   text-align: center;
+  font-weight: bold;
 `;
 
 const Menulist = styled.li`
-  font-size: 15pt;
+  font-size: 1.5rem;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -99,46 +104,46 @@ const Menulist = styled.li`
 
 const Main = styled.li`
   &:hover {
-    opacity: 0.6;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
 const Mammalia = styled.li`
   &:hover {
-    opacity: 0.6;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
 const Birds = styled.li`
   &:hover {
-    opacity: 0.6;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
 const Fish = styled.li`
   &:hover {
-    opacity: 0.6;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
 const NoticeBoard = styled.li`
   &:hover {
     opacity: 0.6;
+    transition: 0.5s;
     letter-spacing: 0.2em;
     padding-left: 0.2em;
-    transition: all 0.3s ease-in-out;
   }
 `;
 
@@ -151,9 +156,8 @@ const Button = styled.button`
   color: #333;
   display: inline-block;
   &:hover {
-    color: gray;
-    font-size: 14pt;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
@@ -165,7 +169,8 @@ const StyleLink = styled(Link)`
   text-decoration: none;
   color: #333;
   &:hover {
-    color: gray;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 

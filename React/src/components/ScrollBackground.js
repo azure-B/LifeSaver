@@ -9,6 +9,7 @@ import EmptyItem from "./EmptyItem";
 import LinkPage from "./LinkPage";
 import Header from "./Header";
 import Footer from "./Footer";
+import { SessionProvider } from "./SessionContext";
 
 const Outer = styled.div`
   background-color: #bbb;
@@ -116,7 +117,9 @@ const ScrollBackground = () => {
 
   return (
     <Outer ref={outerDivRef}>
-      <Header scrollIndex={scrollIndex} />
+      <SessionProvider>
+        <Header scrollIndex={scrollIndex} />
+      </SessionProvider>
       <Dots scrollIndex={scrollIndex} />
       {videosArray.map((item, i) => (
         <React.Fragment key={i}>

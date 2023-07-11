@@ -17,11 +17,11 @@ const ModalBackground = styled.div`
 const modalShow = keyframes`
   from {
     opacity: 0;
-    margin-top: -50px;
+
   }
   to {
     opacity: 1;
-    margin-top: 0;
+
   }
 `;
 
@@ -37,7 +37,6 @@ const modalBgShow = keyframes`
 const ModalSection = styled.section`
   width: 100%;
   height: 100%;
-  margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #bbb;
   animation: ${modalShow} 0.3s;
@@ -46,9 +45,9 @@ const ModalSection = styled.section`
 
 const ModalHeader = styled.header`
   position: relative;
-  padding: 16px 64px 16px 16px;
   background-color: #bbb;
   font-weight: 700;
+  height: 6rem;
 `;
 
 const CloseButton = styled.button`
@@ -56,20 +55,21 @@ const CloseButton = styled.button`
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 15pt;
+  font-size: 3rem;
   width: 8rem;
   height: 6rem;
   z-index: 20;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 7px;
+  color: #333;
   &:hover {
-    color: gray;
-    font-size: 14pt;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
-const ModalMain = styled.main`
-  padding: 16px;
-`;
+const ModalMain = styled.main``;
 
 const Menumodal = (props) => {
   const { open, close, header } = props;

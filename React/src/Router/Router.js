@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Registers from "../components/Registers";
+import Logout from "../components/Logout";
 import Posts from "./../components/Posts/Posts";
 import PostList from "./../components/Posts/PostList";
 import PostDetail from "./../components/Posts/PostDetail";
@@ -31,6 +32,10 @@ const RouterData = createBrowserRouter([
   {
     path: "/animals",
     element: <DetailsPage />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
 ]);
 
