@@ -14,7 +14,7 @@ const StyledLine1 = styled.div`
       ? "#ddd"
       : "#ddd"};
   transition: color 0.5s ease;
-  font-size: 36px;
+  font-size: 2.4rem;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -22,23 +22,51 @@ const StyledLine1 = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 1.8rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const StyledLine2 = styled(StyledLine1)`
-  top: calc(45% + 60px);
+  top: calc(45% + 3.8rem);
   color: #eee;
   transition: color 0.5s ease;
-  font-size: 60px;
+  font-size: 3.8rem;
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 3.2rem;
+    top: calc(45% + 3rem);
+  }
+
+  @media (max-width: 600px) {
+    font-size: 2.8rem;
+    top: calc(45% + 2.5rem);
+  }
 `;
 
 const StyledLine3 = styled(StyledLine1)`
-  top: calc(45% + 40px);
+  top: calc(45% + 3rem);
+
+  @media (min-width: 600px) and (max-width: 1024px) {
+    top: calc(45% + 2.5rem);
+  }
+
+  @media (max-width: 600px) {
+    top: calc(45% + 2rem);
+  }
 `;
 const StyledLine4 = styled(StyledLine1)`
-  top: calc(45% + 80px);
-`;
-const StyledLine5 = styled(StyledLine1)`
-  top: calc(45% + 120px);
+  top: calc(45% + 6rem);
+  @media (min-width: 600px) and (max-width: 1024px) {
+    top: calc(45% + 5rem);
+  }
+
+  @media (max-width: 600px) {
+    top: calc(45% + 4rem);
+  }
 `;
 
 const TextLayer = ({ text, scrollIndex }) => {
@@ -56,8 +84,6 @@ const TextLayer = ({ text, scrollIndex }) => {
             ? StyledLine3
             : index === 3
             ? StyledLine4
-            : index === 4
-            ? StyledLine5
             : null;
         if (StyledLine) {
           return (

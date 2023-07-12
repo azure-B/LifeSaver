@@ -4,14 +4,35 @@ import styled from "styled-components";
 const DotWrapper = styled.div`
   width: 10px;
   height: 10px;
-  border: 1px solid #bbb;
+  border: ${({ $scrollIndex }) =>
+    $scrollIndex === 5 || $scrollIndex === 6
+      ? "1px solid #333"
+      : "1px solid #bbb"};
   border-radius: 999px;
-  background-color: ${({ $active }) => ($active ? "#bbb" : "transparent")};
-  transition: background-color 0.5s;
+  background-color: ${({ $active, $scrollIndex }) =>
+    $active
+      ? $scrollIndex === 5 || $scrollIndex === 6
+        ? "#333"
+        : "#bbb"
+      : "transparent"};
+  transition: background-color 0.5s, border 0.5s;
+
+  @media (max-width: 600px) {
+    background-color: ${({ $active, $scrollIndex }) =>
+      $active ? ($scrollIndex === 5 ? "#333" : "#bbb") : "transparent"};
+
+    border: ${({ $scrollIndex }) =>
+      $scrollIndex === 5 ? "1px solid #333" : "1px solid #bbb"};
+  }
 `;
 
 const Dot = ({ num, scrollIndex }) => {
-  return <DotWrapper $active={scrollIndex === num}></DotWrapper>;
+  return (
+    <DotWrapper
+      $active={scrollIndex === num}
+      $scrollIndex={scrollIndex}
+    ></DotWrapper>
+  );
 };
 
 const FixedWrapper = styled.div`
@@ -19,6 +40,10 @@ const FixedWrapper = styled.div`
   top: 370px;
   right: 50px;
   z-index: 3;
+  @media (max-width: 600px) {
+    top: 6rem;
+    left: 38%;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -28,6 +53,12 @@ const FlexContainer = styled.div`
   align-items: center;
   width: 20px;
   height: 120px; // 간격을 맞추기 위해 높이를 조금 늘립니다.
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    height: 20px;
+    width: 120px;
+  }
 `;
 
 const Dots = ({ scrollIndex }) => {
