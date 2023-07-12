@@ -7,7 +7,7 @@ const router = require("./router/router");
 const { sequelize } = require("./models");
 const secretKey = require("./config");
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "http://54.90.25.182", credentials: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

@@ -24,10 +24,16 @@ function Menu() {
 
   return (
     <>
-      {" "}
       {visible && (
         <Menusection>
-          <ul style={{ listStyle: "none", width: "100%" }}>
+          <ul
+            style={{
+              listStyle: "none",
+              width: "100%",
+              height: "100%",
+              "padding-top": "10%",
+            }}
+          >
             <Menuhead>
               <li>
                 <StyleLink to="/" onClick={() => closeAndNavigate("/")}>
