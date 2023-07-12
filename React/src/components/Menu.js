@@ -96,10 +96,10 @@ function Menu() {
 
 const Menusection = styled.ul`
   position: absolute;
-  width: 30%;
+  width: 50%;
   height: 100%;
   top: 20%;
-  left: 35%;
+  left: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,6 +115,12 @@ const Menuhead = styled.li`
     transition: 0.5s;
     opacity: 0.6;
   }
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 3rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 2.5rem;
+  }
 `;
 
 const Menulist = styled.li`
@@ -123,6 +129,12 @@ const Menulist = styled.li`
   width: 100%;
   height: 100%;
   color: #333;
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Main = styled.li`
