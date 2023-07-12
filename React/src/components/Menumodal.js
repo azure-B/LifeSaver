@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { RxCross1 } from "react-icons/rx";
 
 const ModalBackground = styled.div`
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -51,18 +52,17 @@ const ModalHeader = styled.header`
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 3rem;
+  display: flex;
   width: 8rem;
-  height: 6rem;
-  z-index: 20;
+  height: 100%;
   align-items: center;
   justify-content: space-around;
+  font-size: 2rem;
+  z-index: 20;
   padding-bottom: 7px;
   color: #333;
+  background-color: #bbb;
+  border: none;
   &:hover {
     opacity: 0.6;
     transition: 0.5s;
@@ -79,7 +79,9 @@ const Menumodal = (props) => {
       <ModalSection>
         <ModalHeader>
           {header}
-          <CloseButton onClick={close}>&times;</CloseButton>
+          <CloseButton onClick={close}>
+            <RxCross1 />
+          </CloseButton>
         </ModalHeader>
         <ModalMain>{props.children}</ModalMain>
       </ModalSection>

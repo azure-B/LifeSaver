@@ -1,16 +1,25 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 function Menu() {
-  const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const [lang, setLang] = useState("ko");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const closeAndNavigate = (path) => {
+    close();
+    if (location.pathname === path) {
+      window.location.reload();
+    } else {
+      setTimeout(() => {
+        navigate(path);
+      }, 100);
+    }
+  };
+
   const close = () => {
     setVisible(!visible);
-  };
-  const navigate = (value) => {
-    setLang(value);
   };
 
   return (
@@ -21,8 +30,8 @@ function Menu() {
           <ul style={{ listStyle: "none", width: "100%" }}>
             <Menuhead>
               <li>
-                <StyleLink to={"/"}>
-                  {lang === "ko" ? "생명지킴이" : "LIFE SAVER"}
+                <StyleLink to="/" onClick={() => closeAndNavigate("/")}>
+                  LIFE SAVER
                 </StyleLink>
               </li>
             </Menuhead>
@@ -32,43 +41,47 @@ function Menu() {
             <br></br>
             <Menulist>
               <Main>
-                <StyleLink to={"/"}>
-                  {lang === "ko" ? "메인" : "MAIN"}
+                <StyleLink to="/" onClick={() => closeAndNavigate("/")}>
+                  메인
                 </StyleLink>
               </Main>
-              <br></br>
+
               <Mammalia>
-                <StyleLink to={"/Mammalia"}>
-                  {lang === "ko" ? "포유류" : "MAMMALIA"}
+                <StyleLink
+                  to="/animals"
+                  onClick={() => closeAndNavigate("/animals")}
+                >
+                  포유류
                 </StyleLink>
               </Mammalia>
-              <br></br>
+
               <Birds>
-                <StyleLink to={"/Birds"}>
-                  {lang === "ko" ? "조류" : "BIRDS"}
+                <StyleLink
+                  to="/animals"
+                  onClick={() => closeAndNavigate("/animals")}
+                >
+                  조류
                 </StyleLink>
               </Birds>
-              <br></br>
+
               <Fish>
-                <StyleLink to={"/Fish"}>
-                  {lang === "ko" ? "어류" : "FISH"}
+                <StyleLink
+                  to="/animals"
+                  onClick={() => closeAndNavigate("/animals")}
+                >
+                  어류
                 </StyleLink>
               </Fish>
-              <br></br>
+
               <NoticeBoard>
-                <StyleLink to={"/NoticeBoard"}>
-                  {lang === "ko" ? "게시판" : "NOTICE BOARD"}
+                <StyleLink
+                  to="/NoticeBoard"
+                  onClick={() => closeAndNavigate("/NoticeBoard")}
+                >
+                  게시판
                 </StyleLink>
               </NoticeBoard>
             </Menulist>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <Language>
-              <Button onClick={() => navigate("ko")}>KO</Button>
-              <Button onClick={() => navigate("en")}>EN</Button>
-            </Language>
           </ul>
         </Menusection>
       )}
@@ -79,13 +92,14 @@ function Menu() {
 const Menusection = styled.ul`
   position: absolute;
   margin: 0 auto;
-  width: 100%;
-  height: 110%;
-  bottom: 0;
+  width: 30%;
+  height: 105%;
+  bottom: 5%;
+  left: 35%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #bbb;
+
   z-index: 10;
 `;
 
@@ -93,85 +107,68 @@ const Menuhead = styled.li`
   font-size: 3.5rem;
   text-align: center;
   font-weight: bold;
+  &:hover {
+    transition: 0.5s;
+    opacity: 0.6;
+  }
 `;
 
 const Menulist = styled.li`
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
   width: 100%;
   height: 100%;
+  color: #333;
 `;
 
 const Main = styled.li`
+  padding: 1rem;
   &:hover {
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    opacity: 0.6;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
 `;
 
 const Mammalia = styled.li`
+  padding: 1rem;
   &:hover {
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    opacity: 0.6;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
 `;
 
 const Birds = styled.li`
+  padding: 1rem;
   &:hover {
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    opacity: 0.6;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
 `;
 
 const Fish = styled.li`
+  padding: 1rem;
   &:hover {
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
-    opacity: 0.6;
     transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
 `;
 
 const NoticeBoard = styled.li`
+  padding: 1rem;
   &:hover {
-    opacity: 0.6;
     transition: 0.5s;
-    letter-spacing: 0.2em;
-    padding-left: 0.2em;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
   }
-`;
-
-const Button = styled.button`
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 15pt;
-  text-align: center;
-  color: #333;
-  display: inline-block;
-  &:hover {
-    opacity: 0.6;
-    transition: 0.5s;
-  }
-`;
-
-const Language = styled.div`
-  text-align: center;
 `;
 
 const StyleLink = styled(Link)`
   text-decoration: none;
   color: #333;
-  &:hover {
-    opacity: 0.6;
-    transition: 0.5s;
-  }
 `;
 
 export default Menu;
