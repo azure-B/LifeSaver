@@ -46,22 +46,24 @@ function PostList() {
     background-color: #fff;
     border: 3px solid #fff;
     border-radius: 5%;
-    padding: 5% 4% 6% 4%;
+    padding: 4% 4% 1% 4%;
   `;
   const TitleLink = styled(Link)`
     text-decoration: none;
     color: #000;
-    font-size: 18px;
+    font-size: 12pt;
     font-weight: bold;
     margin-bottom: 10px;
     display: block;
   `;
   const ContentText = styled.p`
     margin-bottom: 5px;
+    font-size: 10pt;
   `;
   const InfoText = styled.p`
     color: #666;
     margin-bottom: 10px;
+    font-size: 10pt;
   `;
   const WriteButton = styled.button`
     padding: 10px 20px;
@@ -89,14 +91,29 @@ function PostList() {
       border-bottom: none;
     }
   `;
+  const PaginationContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  `;
+  const PaginationButton = styled.button`
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: ${(props) => (props.active ? "#525353" : "#f2f2f2")};
+    color: ${(props) => (props.active ? "#fff" : "#000")};
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #525353;
+      color: #fff;
+    }
+  `;
   return (
     <ListArea>
       <ListContainer>
-        <ButtonArea>
-          {canWrite && (
-            <WriteButton onClick={navigateToWritePage}>글쓰기</WriteButton>
-          )}
-        </ButtonArea>
         {list.map((l, idx) => (
           <ContentArea>
             <div key={idx}>
@@ -108,6 +125,24 @@ function PostList() {
             </div>
           </ContentArea>
         ))}
+        <PaginationContainer>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (page) => (
+              <PaginationButton
+                key={page}
+                onClick={() => handlePageClick(page)}
+                active={currentPage === page}
+              >
+                {page}
+              </PaginationButton>
+            )
+          )}
+        </PaginationContainer>
+        <ButtonArea>
+          {canWrite && (
+            <WriteButton onClick={navigateToWritePage}>글쓰기</WriteButton>
+          )}
+        </ButtonArea>
       </ListContainer>
     </ListArea>
   );

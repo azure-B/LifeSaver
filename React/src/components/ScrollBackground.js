@@ -9,6 +9,7 @@ import EmptyItem from "./EmptyItem";
 import LinkPage from "./LinkPage";
 import Header from "./Header";
 import Footer from "./Footer";
+import { SessionProvider } from "./SessionContext";
 
 const Outer = styled.div`
   background-color: #bbb;
@@ -20,14 +21,6 @@ const Outer = styled.div`
     display: none;
   }
 `;
-
-// const InnerHalf = styled.div`
-//   height: 50vh;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 100px;
-// `;
 
 const ScrollBackground = () => {
   const outerDivRef = useRef();
@@ -116,7 +109,9 @@ const ScrollBackground = () => {
 
   return (
     <Outer ref={outerDivRef}>
-      <Header scrollIndex={scrollIndex} />
+      <SessionProvider>
+        <Header scrollIndex={scrollIndex} />
+      </SessionProvider>
       <Dots scrollIndex={scrollIndex} />
       {videosArray.map((item, i) => (
         <React.Fragment key={i}>

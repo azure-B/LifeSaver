@@ -9,10 +9,10 @@ const StyledLine1 = styled.div`
     scrollIndex === 1
       ? "#ddd"
       : scrollIndex === 2
-      ? "#fff"
+      ? "#ddd"
       : scrollIndex === 3
-      ? "#bbb"
-      : "#fff"};
+      ? "#ddd"
+      : "#ddd"};
   transition: color 0.5s ease;
   font-size: 36px;
   top: 45%;
@@ -26,7 +26,7 @@ const StyledLine1 = styled.div`
 
 const StyledLine2 = styled(StyledLine1)`
   top: calc(45% + 60px);
-  color: #fff;
+  color: #eee;
   transition: color 0.5s ease;
   font-size: 60px;
 `;

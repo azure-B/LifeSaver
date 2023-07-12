@@ -9,18 +9,12 @@ import { keyframes, styled } from "styled-components";
 import Header from "../Header";
 
 const DetailsPage = () => {
-  const storedProps = useSelector((state) => state.props);
-  const dispatch = useDispatch();
   const [APINum, SetNum] = useState(0);
   const [API, SetAPI] = useState([]);
   const [Visible, SetVisible] = useState(false);
   const [ani, setAni] = useState(true);
   const [fade, setFade] = useState(false);
   const [errorMsg, setErrMsg] = useState(false);
-
-  useEffect(() => {
-    SetVisible(false);
-  }, []);
 
   const ReturnEvent = () => {
     if (APINum > 0) {
@@ -38,7 +32,8 @@ const DetailsPage = () => {
 
   const SearchButtonEvent = () => {
     setAni(false);
-    SetVisible((prevVisible) => !prevVisible);
+    setFade(false);
+    SetVisible(true);
   };
 
   const NextEvent = () => {
@@ -57,6 +52,8 @@ const DetailsPage = () => {
 
   const SearchEvent = async (name, endangered) => {
     setErrMsg(false);
+    SetVisible(false);
+
     SetAPI([]);
     try {
       const response = await axios.get(
@@ -64,14 +61,14 @@ const DetailsPage = () => {
         {
           params: {
             name,
-            classification: storedProps.classification,
+            classification: "포유류",
             endangered,
           },
         }
       );
       const data = response.data;
       SetAPI(data);
-      SetVisible((prevVisible) => !prevVisible);
+      SetVisible(false);
       setAni(true);
       SetNum(0);
       if (!data[0]) setErrMsg(true);
@@ -81,54 +78,24 @@ const DetailsPage = () => {
   };
 
   useEffect(() => {
+    SetVisible(false);
     SetNum(0);
-    if (storedProps.classification) {
-      axios
-        .get(`${SERVER}/api/speciesSearch/condition`, {
-          params: { classification: storedProps.classification },
-        })
-        .then((result) => {
-          SetAPI(result.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [storedProps.classification]);
-
-  const bgAnime = keyframes`
-    0%{
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-    100%{
-      background-color: rgba(0, 0, 0, 1);
-    }
-  `;
-
-  const bgAnime2 = keyframes`
-    0%{
-      opacity: 0;
-    }
-    100%{
-      opacity: 0.3;
-    }
-  `;
+    axios
+      .get(`${SERVER}/api/speciesSearch/condition`, {
+        params: { classification: "포유류" },
+      })
+      .then((result) => {
+        SetAPI(result.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const DetailsDiv = styled.div`
     z-index: 1 !important;
     background-color: rgba(0, 0, 0, 1);
-    animation: ${Visible && bgAnime} 0.3s ease-in-out;
   `;
-
-  const backgroundImageUrl = () => {
-    if (storedProps.classification === "포유류") {
-      return "/animals/Background_mammal.jpeg";
-    } else if (storedProps.classification === "조류") {
-      return "/animals/Background_birds.jpeg";
-    } else {
-      return "/animals/Background_fish.jpeg";
-    }
-  };
 
   const BackgroundImage = styled.div`
     position: absolute;
@@ -136,11 +103,10 @@ const DetailsPage = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url(${backgroundImageUrl()});
+    background: url("/animals/Background_mammal.jpeg");
     opacity: 0.3;
     background-size: cover;
     filter: grayscale(90%);
-    animation: ${Visible && bgAnime2} 0.39s ease-in-out;
   `;
 
   const ExamDiv = styled.div`
@@ -151,7 +117,6 @@ const DetailsPage = () => {
     width: 100%;
     height: 100vh;
     color: #bbb;
-    animation: ${bgAnime} 0.39s ease-in-out;
   `;
 
   const TableOfContents = styled.h3`

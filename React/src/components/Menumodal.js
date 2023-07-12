@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { RxCross1 } from "react-icons/rx";
 
 const ModalBackground = styled.div`
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -17,11 +18,11 @@ const ModalBackground = styled.div`
 const modalShow = keyframes`
   from {
     opacity: 0;
-    margin-top: -50px;
+
   }
   to {
     opacity: 1;
-    margin-top: 0;
+
   }
 `;
 
@@ -37,7 +38,6 @@ const modalBgShow = keyframes`
 const ModalSection = styled.section`
   width: 100%;
   height: 100%;
-  margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #bbb;
   animation: ${modalShow} 0.3s;
@@ -46,30 +46,30 @@ const ModalSection = styled.section`
 
 const ModalHeader = styled.header`
   position: relative;
-  padding: 16px 64px 16px 16px;
   background-color: #bbb;
   font-weight: 700;
+  height: 6rem;
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 15pt;
+  display: flex;
   width: 8rem;
-  height: 6rem;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 2rem;
   z-index: 20;
+  padding-bottom: 7px;
+  color: #333;
+  background-color: #bbb;
+  border: none;
   &:hover {
-    color: gray;
-    font-size: 14pt;
-    transition: all 0.3s ease-in-out;
+    opacity: 0.6;
+    transition: 0.5s;
   }
 `;
 
-const ModalMain = styled.main`
-  padding: 16px;
-`;
+const ModalMain = styled.main``;
 
 const Menumodal = (props) => {
   const { open, close, header } = props;
@@ -79,7 +79,9 @@ const Menumodal = (props) => {
       <ModalSection>
         <ModalHeader>
           {header}
-          <CloseButton onClick={close}>&times;</CloseButton>
+          <CloseButton onClick={close}>
+            <RxCross1 />
+          </CloseButton>
         </ModalHeader>
         <ModalMain>{props.children}</ModalMain>
       </ModalSection>

@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import DeatilsImg from "./DetailsImg";
 
 function DetailsContent({ animal, animation, fade }) {
-  const { 개요, 이름, 지정관리, 학명, path } = animal;
+  const { 개요, 이름, 지정관리, 학명 } = animal;
 
   function getRandomNumber() {
     return Math.random() * (3.8 - 3.2) + 3.2;
@@ -33,6 +33,7 @@ function DetailsContent({ animal, animation, fade }) {
 }
 50%{
   left: -15rem;
+
 }
 90%{
   left: 0;
@@ -41,10 +42,12 @@ function DetailsContent({ animal, animation, fade }) {
 
   const AnimeHak = keyframes`
 0%{
-  left: -40rem;
+  left: -36rem;
+
 }
 50%{
-  left: -40rem;
+  left: -36rem;
+
 }
 90%{
   left: 0;
@@ -53,12 +56,14 @@ function DetailsContent({ animal, animation, fade }) {
 
   const AnimeContent = keyframes`
 0%{
-  left: -35rem;
+  left: -70rem;
+
 }
 50%{
-  left: -35rem;
+  left: -70rem;
+
 }
-90%{
+100%{
   left: 0;
 }
 `;
@@ -82,12 +87,13 @@ function DetailsContent({ animal, animation, fade }) {
   `;
 
   const ContentDiv = styled.div`
-    height: 33rem;
-    width: 33rem;
+    height: 30rem;
+    width: 30rem;
     overflow: scroll;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
     padding-left: 1rem;
+    position: relative;
 
     /* Webkit 기반 브라우저용 스크롤바 숨기기 */
     ::-webkit-scrollbar {
@@ -106,6 +112,15 @@ function DetailsContent({ animal, animation, fade }) {
     /* IE 용 스크롤바 숨기기 */
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    @media only screen and (max-width: 1024px) {
+      width: 30rem;
+      height: 27rem;
+    }
+
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   `;
 
   const MovingLine = styled.div`
@@ -125,6 +140,10 @@ function DetailsContent({ animal, animation, fade }) {
     width: 0.1rem;
     position: relative;
     overflow: hidden;
+
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
   `;
 
   const AnimalsName = styled.h2`
@@ -150,7 +169,7 @@ function DetailsContent({ animal, animation, fade }) {
     <>
       {animal && (
         <MainDIv>
-          <DeatilsImg path={path} animation={animation} />
+          <DeatilsImg animation={animation} animal={animal} fade={fade} />
           <MovingLines>
             <MovingLine />
           </MovingLines>
