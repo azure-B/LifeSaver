@@ -94,7 +94,7 @@ function PostDetail() {
     margin-bottom: 10px;
     background-color: #fff;
     max-width: 700px;
-    width: 80rem;
+    width: 35rem;
     padding: 2rem;
     margin: 2%;
     margin: 0 auto;
@@ -177,9 +177,6 @@ function PostDetail() {
       border-right: 8px solid #000;
     }
 
-    .carousel.carousel-slider .control-arrow:hover {
-      /* background: rgb(19 0 0); */
-    }
     @media (min-width: 600px) and (max-width: 1024px) {
       .carousel .slider-wrapper {
         width: 98%;
