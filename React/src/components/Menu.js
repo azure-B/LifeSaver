@@ -169,7 +169,7 @@ const NoticeBoard = styled.li`
 
 const StyleLink = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: #333;
 
   &:hover {
     opacity: 0.9;

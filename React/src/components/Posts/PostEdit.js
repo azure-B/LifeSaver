@@ -9,29 +9,35 @@ const PostEditArea = styled.div`
 `;
 const EditForm = styled.form`
   background-color: #fff;
-  width: 86%;
+  width: 40rem;
   max-width: 700px;
-  padding: 5% 4% 6% 4%;
+  padding: 2rem 2rem 2rem 2rem;
   margin: 2%;
   margin: 0 auto;
   border-radius: 3%;
   box-shadow: 7px 3px 20px 3px #7f7f7f;
+  @media (min-width: 600px) and (max-width: 1024px) {
+    width: 30rem;
+  }
+  @media (max-width: 600px) {
+    width: 25rem;
+  }
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 `;
 
 const Label = styled.label`
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem;
   font-weight: bold;
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 11pt;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -40,7 +46,7 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 11pt;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;

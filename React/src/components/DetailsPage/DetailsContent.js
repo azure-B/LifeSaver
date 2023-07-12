@@ -89,7 +89,7 @@ function DetailsContent({ animal, animation, fade }) {
   const ContentDiv = styled.div`
     height: 30rem;
     width: 30rem;
-    overflow: scroll;
+    overflow: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
     padding-left: 1rem;
