@@ -40,18 +40,24 @@ function PostList() {
   // Styles
   const ListArea = styled.div`
     margin: 0 auto;
-    width: 90%;
+    width: 40rem;
+    @media (min-width: 600px) and (max-width: 1024px) {
+      width: 35rem;
+    }
+    @media (max-width: 600px) {
+      width: 25rem;
+    }
   `;
   const ListContainer = styled.div`
     background-color: #fff;
     border: 3px solid #fff;
     border-radius: 5%;
-    padding: 4% 4% 1% 4%;
+    padding: 2rem 1.5rem 0.5rem 1.5rem;
   `;
   const TitleLink = styled(Link)`
     text-decoration: none;
     color: #000;
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: bold;
     margin-bottom: 10px;
     display: block;

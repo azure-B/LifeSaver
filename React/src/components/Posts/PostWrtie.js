@@ -11,7 +11,7 @@ const FormContainer = styled.form`
   background-color: #fff;
   width: 86%;
   max-width: 700px;
-  padding: 5% 4% 6% 4%;
+  padding: 3% 4% 2% 4%;
   margin: 2%;
   margin: 0 auto;
   border-radius: 3%;
@@ -19,7 +19,7 @@ const FormContainer = styled.form`
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 `;
 
 const Label = styled.label`
@@ -57,7 +57,7 @@ const FileInput = styled.input`
 const FileInputLabel = styled.label`
   display: inline-block;
   padding: 10px 20px;
-  margin-bottom: 10px;
+  margin-bottom: 3px;
   background-color: #f2f2f2;
   color: #000;
   border: none;
@@ -81,7 +81,7 @@ const PreviewItem = styled.div`
   width: 100px;
   height: 100px;
   margin-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 
 const PreviewImage = styled.img`

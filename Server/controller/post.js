@@ -5,7 +5,7 @@ const { deleteFile } = require("../config/upload");
 module.exports = {
   // 전체 게시물 조회 (페이징 처리)
   GetPosts: async (req, res) => {
-    const limit = 10;
+    const limit = 5;
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const offset = (page - 1) * limit;
     const totalCount = await models.db.posts.count();

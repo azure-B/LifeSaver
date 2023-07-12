@@ -13,7 +13,9 @@ function PostDetail() {
   const { postId } = useParams();
   const [detail, setDetail] = useState(null);
   const [isAuthor, setIsAuthor] = useState(true);
-
+  const navigateToListPage = () => {
+    navigate(`${page}`);
+  };
   const navigateToEditPage = () => {
     navigate(`${page}/edit/${postId}`);
   };
@@ -56,18 +58,18 @@ function PostDetail() {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-size: 24px;
+    font-size: 1.5rem;
   `;
 
   const ButtonContainer = styled.div`
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     text-align: right;
     border-top: 1px solid #f2f2f2;
   `;
 
   const Button = styled.button`
     padding: 10px 20px;
-    margin-top: 20px;
+    margin-top: 1rem;
     background-color: #f2f2f2;
     color: #000;
     border: none;
@@ -83,23 +85,41 @@ function PostDetail() {
   `;
   const PostDetailArea = styled.div`
     margin: 0 auto;
+    @media (min-width: 600px) and (max-width: 1024px) {
+    }
+    @media (max-width: 600px) {
+    }
   `;
   const DetailContainer = styled.div`
-    margin-bottom: 20px;
-    background-color: #fff;
+    margin-bottom: 10px;
+    background-color: #cccbcb;
     max-width: 700px;
-    width: 86%;
-    padding: 4%;
+    width: 80rem;
+    padding: 2rem;
     margin: 2%;
     margin: 0 auto;
     border-radius: 3%;
     box-shadow: 7px 3px 20px 3px #7f7f7f;
+    @media (min-width: 600px) and (max-width: 1024px) {
+      width: 30rem;
+      padding: 2rem 0.3rem 1rem 0.3rem;
+    }
+    @media (max-width: 600px) {
+      width: 26rem;
+      padding: 2rem 0.3rem 1rem 0.3rem;
+    }
   `;
 
   const DetailArea = styled.div`
-    background-color: #fff;
-    margin-top: 10px;
-    padding: 15px;
+    background-color: #cccbcb;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    @media (min-width: 600px) and (max-width: 1024px) {
+      padding: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      padding: 1rem 1.5rem;
+    }
   `;
 
   const DetailContents = styled.div``;
@@ -130,9 +150,10 @@ function PostDetail() {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    width: 96%;
-    min-height: 300px;
+    width: 80%;
+    min-height: 270px;
     margin: 0 auto;
+
     .carousel .slide {
       display: flex;
       align-items: center;
@@ -147,7 +168,18 @@ function PostDetail() {
     }
 
     .carousel .slider-wrapper {
-      width: 87%;
+      width: 80%;
+    }
+
+    @media (min-width: 600px) and (max-width: 1024px) {
+      .carousel .slider-wrapper {
+        width: 98%;
+      }
+    }
+    @media (max-width: 600px) {
+      .carousel .slider-wrapper {
+        width: 98%;
+      }
     }
   `;
   if (!detail || isAuthor === null) {
@@ -159,7 +191,12 @@ function PostDetail() {
       <DetailContainer>
         {detail.images && detail.images.length > 0 && (
           <CarouselContainer>
-            <Carousel showThumbs={false} showStatus={false}>
+            <Carousel
+              showThumbs={false}
+              showStatus={false}
+              showArrows={true}
+              useKeyboardArrows={true}
+            >
               {detail.images.map((key, idx) => (
                 <div key={idx + 1}>
                   <img src={key.url} alt="이미지" />
@@ -179,12 +216,15 @@ function PostDetail() {
             <DetailContent>{detail.content}</DetailContent>
           </DetailContents>
         </DetailArea>
-        {isAuthor && (
-          <ButtonContainer>
-            <Button onClick={navigateToEditPage}>수정하기</Button>
-            <Button onClick={handleDelete}>삭제하기</Button>
-          </ButtonContainer>
-        )}
+        <ButtonContainer>
+          <Button onClick={navigateToListPage}>목록</Button>
+          {isAuthor && (
+            <span>
+              <Button onClick={navigateToEditPage}>수정하기</Button>
+              <Button onClick={handleDelete}>삭제하기</Button>
+            </span>
+          )}
+        </ButtonContainer>
       </DetailContainer>
     </PostDetailArea>
   );
