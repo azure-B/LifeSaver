@@ -92,7 +92,7 @@ function PostDetail() {
   `;
   const DetailContainer = styled.div`
     margin-bottom: 10px;
-    background-color: #cccbcb;
+    background-color: #fff;
     max-width: 700px;
     width: 80rem;
     padding: 2rem;
@@ -111,7 +111,7 @@ function PostDetail() {
   `;
 
   const DetailArea = styled.div`
-    background-color: #cccbcb;
+    background-color: #fff;
     margin-top: 1rem;
     padding: 1rem 1.5rem;
     @media (min-width: 600px) and (max-width: 1024px) {
@@ -168,9 +168,18 @@ function PostDetail() {
     }
 
     .carousel .slider-wrapper {
-      width: 80%;
+      width: 100%;
+    }
+    .carousel .control-next.control-arrow:before {
+      border-left: 8px solid #000;
+    }
+    .carousel .control-prev.control-arrow:before {
+      border-right: 8px solid #000;
     }
 
+    .carousel.carousel-slider .control-arrow:hover {
+      /* background: rgb(19 0 0); */
+    }
     @media (min-width: 600px) and (max-width: 1024px) {
       .carousel .slider-wrapper {
         width: 98%;
