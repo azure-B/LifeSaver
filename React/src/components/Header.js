@@ -50,6 +50,12 @@ const MainTitle = styled.div`
     opacity: 0.6;
     transition: 0.5s;
   }
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 3rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
+  }
 `;
 
 const MenuButtonDiv = styled.div`
@@ -79,6 +85,9 @@ const IconButton = styled.div`
   &:hover {
     opacity: 0.6;
     transition: 0.5s;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
   }
 `;
 
