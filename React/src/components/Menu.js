@@ -52,30 +52,15 @@ function Menu() {
               </Main>
 
               <Mammalia>
-                <StyleLink
-                  to="/animals/mammal"
-                  onClick={() => closeAndNavigate("/animals")}
-                >
-                  포유류
-                </StyleLink>
+                <StyleLink to="/animals/mammal">포유류</StyleLink>
               </Mammalia>
 
               <Birds>
-                <StyleLink
-                  to="/animals/birds"
-                  onClick={() => closeAndNavigate("/animals")}
-                >
-                  조류
-                </StyleLink>
+                <StyleLink to="/animals/birds">조류</StyleLink>
               </Birds>
 
               <Fish>
-                <StyleLink
-                  to="/animals/fish"
-                  onClick={() => closeAndNavigate("/animals")}
-                >
-                  어류
-                </StyleLink>
+                <StyleLink to="/animals/fish">어류</StyleLink>
               </Fish>
 
               <NoticeBoard>
@@ -172,7 +157,20 @@ const NoticeBoard = styled.li`
 
 const StyleLink = styled(Link)`
   text-decoration: none;
-  color: #333;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+const StyleLink2 = styled(Link)`
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 export default Menu;
