@@ -8,6 +8,8 @@ import PostDetail from "./../components/Posts/PostDetail";
 import PostWrite from "./../components/Posts/PostWrtie";
 import PostEdit from "./../components/Posts/PostEdit";
 import DetailsPage from "../components/DetailsPage/DetailsPage";
+import DetailsPageFish from "../components/DetailsPage/DetailsPageFish";
+import DetailsPageBird from "../components/DetailsPage/DetailsPageBirds";
 
 const RouterData = createBrowserRouter([
   {
@@ -30,12 +32,16 @@ const RouterData = createBrowserRouter([
     ],
   },
   {
-    path: "/animals",
+    path: "/animals/mammal",
     element: <DetailsPage />,
   },
   {
-    path: "/logout",
-    element: <Logout />,
+    path: "/animals/fish",
+    element: <DetailsPageFish />,
+  },
+  {
+    path: "/animals/birds",
+    element: <DetailsPageBird />,
   },
 ]);
 

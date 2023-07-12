@@ -53,7 +53,7 @@ function Menu() {
 
               <Mammalia>
                 <StyleLink
-                  to="/animals"
+                  to="/animals/mammal"
                   onClick={() => closeAndNavigate("/animals")}
                 >
                   포유류
@@ -62,7 +62,7 @@ function Menu() {
 
               <Birds>
                 <StyleLink
-                  to="/animals"
+                  to="/animals/birds"
                   onClick={() => closeAndNavigate("/animals")}
                 >
                   조류
@@ -71,7 +71,7 @@ function Menu() {
 
               <Fish>
                 <StyleLink
-                  to="/animals"
+                  to="/animals/fish"
                   onClick={() => closeAndNavigate("/animals")}
                 >
                   어류

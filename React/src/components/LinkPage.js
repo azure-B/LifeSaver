@@ -2,9 +2,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { setProps } from "../Store"; // Redux 액션 생성자 함수를 가져옵니다.
 
 const PageSection = styled.div`
   height: 100vh;
@@ -59,25 +57,29 @@ const TextOverImage = styled.div`
 
 const LinkPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 액션을 디스패치합니다.
 
-  const handleClick = (classification) => {
-    dispatch(setProps({ classification })); // Redux store의 classification 값을 변경합니다.
-    navigate("/animals"); // "/animals"로 이동합니다.
+  const handleClick = () => {
+    navigate("/animals/mammal");
+  };
+  const handleClick2 = () => {
+    navigate("/animals/birds");
+  };
+  const handleClick3 = () => {
+    navigate("/animals/fish");
   };
 
   return (
     <PageSection>
       <ImageWrapper>
-        <ImageContainer onClick={() => handleClick("포유류")}>
+        <ImageContainer onClick={() => handleClick()}>
           <Image src="/images/image-1.jpg" alt="포유류" />
           <TextOverImage>포유류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("조류")}>
+        <ImageContainer onClick={() => handleClick2()}>
           <Image src="/images/image-2.jpg" alt="조류" />
           <TextOverImage>조류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("어류")}>
+        <ImageContainer onClick={() => handleClick3()}>
           <Image src="/images/image-3.jpg" alt="어류" />
           <TextOverImage>어류</TextOverImage>
         </ImageContainer>
