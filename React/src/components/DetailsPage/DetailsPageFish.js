@@ -8,7 +8,7 @@ import DetailsSearch from "./DetailsSearch";
 import { keyframes, styled } from "styled-components";
 import Header from "../Header";
 
-const DetailsPage = () => {
+const DetailsPageFish = () => {
   const [APINum, SetNum] = useState(0);
   const [API, SetAPI] = useState([]);
   const [Visible, SetVisible] = useState(false);
@@ -33,7 +33,7 @@ const DetailsPage = () => {
   const SearchButtonEvent = () => {
     setAni(false);
     setFade(false);
-    SetVisible(true);
+    SetVisible((prevVisible) => !prevVisible);
   };
 
   const NextEvent = () => {
@@ -52,8 +52,6 @@ const DetailsPage = () => {
 
   const SearchEvent = async (name, endangered) => {
     setErrMsg(false);
-    SetVisible(false);
-
     SetAPI([]);
     try {
       const response = await axios.get(
@@ -61,14 +59,14 @@ const DetailsPage = () => {
         {
           params: {
             name,
-            classification: "포유류",
+            classification: "어류",
             endangered,
           },
         }
       );
       const data = response.data;
       SetAPI(data);
-      SetVisible(false);
+      SetVisible((prevVisible) => !prevVisible);
       setAni(true);
       SetNum(0);
       if (!data[0]) setErrMsg(true);
@@ -78,11 +76,10 @@ const DetailsPage = () => {
   };
 
   useEffect(() => {
-    SetVisible(false);
     SetNum(0);
     axios
       .get(`${SERVER}/api/speciesSearch/condition`, {
-        params: { classification: "포유류" },
+        params: { classification: "어류" },
       })
       .then((result) => {
         SetAPI(result.data);
@@ -103,7 +100,7 @@ const DetailsPage = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("/animals/Background_mammal.jpeg");
+    background: url("/animals/Background_fish.jpeg");
     opacity: 0.3;
     background-size: cover;
     filter: grayscale(90%);
@@ -158,4 +155,4 @@ const DetailsPage = () => {
   );
 };
 
-export default DetailsPage;
+export default DetailsPageFish;
