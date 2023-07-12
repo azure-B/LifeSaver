@@ -74,7 +74,7 @@ function Login() {
               {...register("user name", {
                 required: "유저 이름을 입력해주세요.",
               })}
-              type="password"
+              type="text"
             />
 
             <div>{loginMessage && loginMessage}</div>
