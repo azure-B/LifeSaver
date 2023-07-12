@@ -100,6 +100,12 @@ function DeatilsImg({ animation, animal }) {
       height: 33rem;
       animation: ${Ani2 && AnimeImg2} 2.4s ease-in-out;
     }
+
+    @media only screen and (max-width: 400px) {
+      width: 22rem;
+      height: 24rem;
+      animation: ${Ani2 && AnimeImg2} 2.4s ease-in-out;
+    }
   `;
 
   const Imgs2 = styled.div`
@@ -120,6 +126,11 @@ function DeatilsImg({ animation, animal }) {
       opacity: ${Ani ? 1 : 0};
       background-color: ${Ani && "rgba(0,0,0,0.5)"};
       animation: ${Ani2 && AnimeImg2} 2.4s ease-in-out;
+    }
+
+    @media only screen and (max-width: 400px) {
+      width: 22rem;
+      height: 24rem;
     }
   `;
 
