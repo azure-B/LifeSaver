@@ -1,6 +1,10 @@
+// LinkPage.js
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { setProps } from "../Store"; // Redux 액션 생성자 함수를 가져옵니다.
 
 const PageSection = styled.div`
   height: 100vh;
@@ -55,9 +59,11 @@ const TextOverImage = styled.div`
 
 const LinkPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // useDispatch 훅을 사용하여 액션을 디스패치합니다.
 
   const handleClick = (classification) => {
-    navigate("/animals", { state: { classification } });
+    dispatch(setProps({ classification })); // Redux store의 classification 값을 변경합니다.
+    navigate("/animals"); // "/animals"로 이동합니다.
   };
 
   return (
