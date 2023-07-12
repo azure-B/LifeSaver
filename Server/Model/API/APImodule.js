@@ -50,7 +50,6 @@ const Module = {
 
       //
     } else if (name && classification && !endangered) {
-      console.log("hit");
       // name && classification search
       const filterSpecieAPI = specieAPI
         .filter(filterByName)
@@ -65,8 +64,6 @@ const Module = {
         .filter(filterByEndangered);
       resultObj = filterSpecieAPI;
     }
-
-    console.log(resultObj);
 
     return resultObj;
   },
