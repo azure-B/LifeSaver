@@ -124,7 +124,7 @@ const DetailsPage = () => {
     if (storedProps.classification === "포유류") {
       return "/animals/Background_mammal.jpeg";
     } else if (storedProps.classification === "조류") {
-      return "/animals/Background_birds.jpeg";
+      return "/animals/Background_bird.jpeg";
     } else {
       return "/animals/Background_fish.jpeg";
     }
