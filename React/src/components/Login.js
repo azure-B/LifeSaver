@@ -3,10 +3,12 @@ import axios from "axios";
 import { SERVER } from "../lib/config";
 import { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ onSuccess }) {
   const { register, handleSubmit } = useForm();
   const [loginMessage, SetLoginMessage] = useState("");
+  const navigate = useNavigate();
 
   const onVaild = async (data) => {
     const { email, password } = data;
@@ -18,6 +20,10 @@ function Login() {
       )
       .then((result) => {
         SetLoginMessage(result.data.message);
+        if (result.data.result === true) {
+          onSuccess();
+          navigate("/");
+        }
       });
   };
 

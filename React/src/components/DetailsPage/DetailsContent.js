@@ -84,7 +84,6 @@ function DetailsContent({ animal, animation, fade }) {
   const ContentDiv = styled.div`
     height: 33rem;
     width: 33rem;
-    overflow: scroll;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
     padding-left: 1rem;
@@ -97,6 +96,13 @@ function DetailsContent({ animal, animation, fade }) {
 
     ::-webkit-scrollbar-thumb {
       background-color: transparent;
+    }
+
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar {
+      display: none;
     }
 
     /* Firefox 용 스크롤바 숨기기 */
