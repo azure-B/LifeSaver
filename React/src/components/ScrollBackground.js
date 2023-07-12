@@ -22,14 +22,6 @@ const Outer = styled.div`
   }
 `;
 
-// const InnerHalf = styled.div`
-//   height: 50vh;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   font-size: 100px;
-// `;
-
 const ScrollBackground = () => {
   const outerDivRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);

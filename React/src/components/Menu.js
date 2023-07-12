@@ -31,7 +31,6 @@ function Menu() {
               listStyle: "none",
               width: "100%",
               height: "100%",
-              "padding-top": "10%",
             }}
           >
             <Menuhead>
@@ -97,10 +96,9 @@ function Menu() {
 
 const Menusection = styled.ul`
   position: absolute;
-  margin: 0 auto;
   width: 30%;
-  height: 105%;
-  bottom: 5%;
+  height: 100%;
+  top: 20%;
   left: 35%;
   display: flex;
   justify-content: center;
