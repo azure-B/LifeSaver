@@ -1,3 +1,5 @@
+// LinkPage.js
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -56,22 +58,28 @@ const TextOverImage = styled.div`
 const LinkPage = () => {
   const navigate = useNavigate();
 
-  const handleClick = (classification) => {
-    navigate("/animals", { state: { classification } });
+  const handleClick = () => {
+    navigate("/animals/mammal");
+  };
+  const handleClick2 = () => {
+    navigate("/animals/birds");
+  };
+  const handleClick3 = () => {
+    navigate("/animals/fish");
   };
 
   return (
     <PageSection>
       <ImageWrapper>
-        <ImageContainer onClick={() => handleClick("포유류")}>
+        <ImageContainer onClick={() => handleClick()}>
           <Image src="/images/image-1.jpg" alt="포유류" />
           <TextOverImage>포유류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("조류")}>
+        <ImageContainer onClick={() => handleClick2()}>
           <Image src="/images/image-2.jpg" alt="조류" />
           <TextOverImage>조류</TextOverImage>
         </ImageContainer>
-        <ImageContainer onClick={() => handleClick("어류")}>
+        <ImageContainer onClick={() => handleClick3()}>
           <Image src="/images/image-3.jpg" alt="어류" />
           <TextOverImage>어류</TextOverImage>
         </ImageContainer>

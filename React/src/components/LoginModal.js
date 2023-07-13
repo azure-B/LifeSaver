@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { RxCross1 } from "react-icons/rx";
 
 const ModalBackground = styled.div`
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -17,11 +18,9 @@ const ModalBackground = styled.div`
 const modalShow = keyframes`
   from {
     opacity: 0;
-    margin-top: -50px;
   }
   to {
     opacity: 1;
-    margin-top: 0;
   }
 `;
 
@@ -35,55 +34,75 @@ const modalBgShow = keyframes`
 `;
 
 const ModalSection = styled.section`
-  width: 90%;
-  max-width: 320px;
+  width: 100%;
+  height: 100vh;
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: #fff;
+  background-color: #bbb;
   animation: ${modalShow} 0.3s;
   overflow: hidden;
 `;
 
-const ModalHeader = styled.header`
-  position: relative;
-  padding: 16px 64px 16px 16px;
-  background-color: #f1f1f1;
-  font-weight: 700;
-`;
-
 const CloseButton = styled.button`
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 30px;
-  font-size: 21px;
-  font-weight: 700;
-  text-align: center;
-  color: #999;
-  background-color: transparent;
+  position: relative;
   border: none;
-  outline: none;
-  cursor: pointer;
+  background-color: transparent;
+  font-size: 2rem;
+  width: 8rem;
+  height: 6rem;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  z-index: 20;
+  color: #333;
+  &:hover {
+    color: #ddd;
+    font-size: 14pt;
+    transition: all 0.3s ease-in-out;
+  }
 `;
 
 const ModalMain = styled.main`
-  padding: 16px;
-  border-bottom: 1px solid #dee2e6;
-  border-top: 1px solid #dee2e6;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+`;
+
+const BgImage = styled.img`
+  position: absolute;
+  top: 5rem;
+  right: -30rem;
+  object-fit: cover;
+  overflow: hidden;
+
+  @media (max-width: 1300px) {
+    right: -40rem;
+  }
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+const Example = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const LoginModal = (props) => {
-  const { open, close, header } = props;
+  const { open, close } = props;
 
   return (
     <ModalBackground open={open}>
-      <ModalSection>
-        <ModalHeader>
-          {header}
-          <CloseButton onClick={close}>&times;</CloseButton>
-        </ModalHeader>
-        <ModalMain>{props.children}</ModalMain>
-      </ModalSection>
+      <Example>
+        <BgImage src="/images/hands.png" alt="손"></BgImage>
+        <ModalSection>
+          <CloseButton onClick={close}>
+            <RxCross1 />
+          </CloseButton>
+          <ModalMain>{props.children}</ModalMain>
+        </ModalSection>
+      </Example>
     </ModalBackground>
   );
 };

@@ -4,7 +4,7 @@ import { RxArrowUp } from "react-icons/rx";
 
 const ScrollToTopButton = styled.button`
   position: fixed;
-  z-index: 100;
+  z-index: 2;
   bottom: 50px;
   right: 50px;
   width: 50px;

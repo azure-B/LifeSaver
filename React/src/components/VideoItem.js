@@ -17,6 +17,7 @@ const VideoWrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   min-width: 100%;
+  background-color: black;
 `;
 
 const Video = styled.video`
@@ -25,6 +26,7 @@ const Video = styled.video`
   object-fit: cover;
   width: 100% !important;
   height: 100% !important;
+  opacity: 0.5;
 `;
 
 const VideoItem = ({ video, text, scrollIndex }) => {

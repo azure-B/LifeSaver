@@ -17,22 +17,20 @@ const Footer = () => {
           </Footerhead>
           <Content>
             <Main>
-              <StyleLink to={"/Main"}>
-                {lang === "en" ? "MAIN" : "메인"}
-              </StyleLink>
+              <StyleLink to={"/"}>{lang === "en" ? "MAIN" : "메인"}</StyleLink>
             </Main>
             <Mam>
-              <StyleLink to={"/Mammalia"}>
+              <StyleLink to={"/animals"}>
                 {lang === "en" ? "MAMMALIA" : "포유류"}
               </StyleLink>
             </Mam>
             <Birds>
-              <StyleLink to={"/Birds"}>
+              <StyleLink to={"/animals"}>
                 {lang === "en" ? "BIRDS" : "조류"}
               </StyleLink>
             </Birds>
             <Fish>
-              <StyleLink to={"/Fish"}>
+              <StyleLink to={"/animals"}>
                 {lang === "en" ? "FISH" : "어류"}
               </StyleLink>
             </Fish>
@@ -75,7 +73,7 @@ const Footerpage = styled.ul`
 `;
 
 const Footerhead = styled.li`
-  font-size: 40px;
+  font-size: 50px;
   padding-bottom: 0px;
   text-align: center;
 `;

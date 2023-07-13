@@ -1,10 +1,10 @@
 import { RxHamburgerMenu, RxPerson } from "react-icons/rx";
 import styled from "styled-components";
-import Login from "./Login";
 import { useState } from "react";
-import Modal from "./Modal";
+import { Link } from "react-router-dom";
 import Menu from "./Menu";
 import Menumodal from "./Menumodal";
+import Login from "./Login";
 import Loginmodal from "./LoginModal";
 
 const HeaderContainer = styled.div`
@@ -33,7 +33,7 @@ const MainTitle = styled.div`
   font-size: 3.5rem;
   color: ${({ scrollIndex }) =>
     scrollIndex === 1
-      ? "#333"
+      ? "#ddd"
       : scrollIndex === 2
       ? "#bbb"
       : scrollIndex === 3
@@ -45,9 +45,16 @@ const MainTitle = styled.div`
       : "#bbb"};
   transition: color 0.5s ease;
   font-weight: bold;
+  cursor: default;
   &:hover {
     opacity: 0.6;
     transition: 0.5s;
+  }
+  @media (min-width: 600px) and (max-width: 1024px) {
+    font-size: 3rem;
+  }
+  @media (max-width: 600px) {
+    font-size: 2.2rem;
   }
 `;
 
@@ -64,7 +71,7 @@ const IconButton = styled.div`
   cursor: pointer;
   color: ${({ scrollIndex }) =>
     scrollIndex === 1
-      ? "#333"
+      ? "#bbb"
       : scrollIndex === 2
       ? "#bbb"
       : scrollIndex === 3
@@ -78,6 +85,9 @@ const IconButton = styled.div`
   &:hover {
     opacity: 0.6;
     transition: 0.5s;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -86,30 +96,12 @@ const MypageContainer = styled.div`
   width: 8rem;
   height: 100%;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
 `;
 
-const TransButton = styled.div`
-  font-size: 1.2rem;
-  margin-right: 20px;
-  cursor: pointer;
-  color: ${({ scrollIndex }) =>
-    scrollIndex === 1
-      ? "#333"
-      : scrollIndex === 2
-      ? "#bbb"
-      : scrollIndex === 3
-      ? "#bbb"
-      : scrollIndex === 4
-      ? "#bbb"
-      : scrollIndex === 5
-      ? "#333"
-      : "white"};
-  transition: color 0.5s ease;
-  &:hover {
-    opacity: 0.6;
-    transition: 0.5s;
-  }
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 function Header({ scrollIndex }) {
@@ -141,17 +133,17 @@ function Header({ scrollIndex }) {
           </IconButton>
         </MenuButtonDiv>
 
-        <MainTitle scrollIndex={scrollIndex}>LIFE SAVER</MainTitle>
+        <MainTitle scrollIndex={scrollIndex}>
+          <StyledLink to="/">LIFE SAVER</StyledLink>
+        </MainTitle>
 
         <MypageContainer>
-          <TransButton scrollIndex={scrollIndex}>EN</TransButton>
           <IconButton scrollIndex={scrollIndex} onClick={handleLoginOpen}>
             <RxPerson />
           </IconButton>
         </MypageContainer>
       </HeaderDiv>
-
-      <Loginmodal open={showLogin} close={handleLoginClose} header="Login">
+      <Loginmodal open={showLogin} close={handleLoginClose}>
         <Login />
       </Loginmodal>
       <Menumodal open={showMenu} close={handleMenuClose}>
